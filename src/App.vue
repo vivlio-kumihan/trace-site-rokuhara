@@ -1,148 +1,124 @@
 <!-- $ npm run dev -->
 
-<!-- 配列・オブジェクト -->
+<!-- Reactivity -->
+<!--
+<script setup>
+  // Zero
+  // クリックしても何も起こらない。
+  // count 数が増えないのは定義した count 変数が
+  // 『Reactivity』 を持っていないため。
+  const count = 0
+</script>
+<template>
+  <h2>Reactivity Zero</h2>
+  <button @click="count++">Count is {{ count }}</button>
+</template>
+
 
 <script setup>
-  const lang = ['JavaScript', 'HTML', 'CSS']
-  const users = [
-    {id: 1, name: '髙廣信之', email: 'nob@email.com', admin: true},
-    {id: 2, name: '髙廣和恵', email: 'kaz@email.com', admin: false},
-    {id: 3, name: '髙廣茉李', email: 'mari@email.com', admin: false}
-  ]
-  const nob = {
-    id: 1,
-    name: 'nobuyuki Takahiro',
-    email: 'nob@email.com',
-    admin: true
-  }
-  const clickBTN = () => {
-    console.log('click BTN!')
-  }
-  const clickBtnArg = (arg) => {
-    console.log(arg)
-  }
-  const clickBtnArgAnother = (arg) => {
-    console.log(arg)
-  }
-  const dbClickBTN = () => {
-    console.log('duble click BTN!')
-  }
-  const mouseEnter = () => {
-    console.log('mouse over!')
-  }
-  const mouseLeave = () => {
-    console.log('mouse leave!')
-  }
-  const clickOnEvent = (e) => {
-    console.log(e.target)
-    e.target.style.backgroundColor = 'red'
-  }
-  const send = () => {
-    console.log('send')
-  }
+  // One-1
+  // ref()関数の設定
 
-  // ページのリロードを防ぐため event の
-  // オブジェクトの preventDefault を利用する
-  // ことができます。
-  // preventDefault メソッドを実行するで
-  // submit のデフォルトの動作をキャンセルする
-  // ことができます。
-  const pdSend = (e) => {
-    e.preventDefault()
-    console.log('send')
-  }
-  // イベント修飾子を使って同じことをやってみる。
-  const pdSendModifier = () => {
-    console.log('pdSendModifier')
-  }
+  // ref()関数をimport
+  // ref()関数に『0』の引数を代入して変数countを初期化する。
+  // これで変数countはRectiveになる。
+  import { ref } from 'vue'
+  const count = ref(0);
 </script>
-
 <template>
-  <h1>配列・オブジェクト</h1>
-  <h2>配列</h2>
-  <!-- 配列の値を出力する。--> 
-  <p>{{ lang[0] }}</p>
-  <p>{{ lang[1] }}</p>
-  <p>{{ lang[2] }}</p>
+  <h2>Reactivity One</h2>
+  <button @click="count++">Count is {{ count }}</button>
+</template>
 
-  <!-- v-forで回す。シンプル。-->
-  <p v-for="l in lang" :key="l">{{ l }}</p>
 
-  <h2>オブジェクト</h2>
-  <template v-for="(user, idx) in users" :key="user">
-    <ul>
-      <li>{{ idx }}. </li>
-      <li>{{ user.id }}</li>
-      <li>{{ user.name }}</li>
-      <li>{{ user.email }}</li>
-    </ul>
-  </template>
+<script setup>
+  // One-2
+  // ref()関数のラッパー
 
-  <template v-for="value in nob" :key="value">
-    <p>
-      {{ value }}
-    </p>
-  </template>
+  import { ref } from 'vue'
+  const count = ref('object')
+  // 変数countは、オブジェクトでラップされており
+  // value プロパティのみを持っている。
+  // 値を参照するにはメソッドを送信する。
+  console.log(count.value);
+</script>
+<template></template>
 
-  <dl class="key-in-obj">
-    <template v-for="(value, key) in nob" :key="value">
-      <div>
-        <dt>{{ key }}</dt>
-        <dd>{{ value }}</dd>
-      </div>
-    </template>
-  </dl>
 
-  <template v-for="user in users" :key="user.id">
-    <ul class="obj-in-arr">
-      <li v-for="(value, key) in user" :key="value">
-        <span>{{ key }}:</span>{{ value }}
-      </li>
-    </ul>
-  </template>
+<script setup>
+  // Two
+  // ref()関数に関数を定義する
 
-  <h2>配列と分岐</h2>
-  <div v-for="user in users" :key="user.id">
-    <div v-show="!user.admin">{{ user.name }} is not admin.</div>
-  </div>
+  // ref では引数： boolean, string, オブジェクトを取る。
+  // 例では数値を取っている。どうやって他の引数を取るのかわからない。
+  import { ref } from 'vue'
+  const count = ref(0)
+  // tmplateタグ内では順次状況によって数値は変化していった、
+  // scriptタグ内では無名関数を値にした変数を定義する必要がある。
+  const addCount = () => {
+    count.value++
+  };
+</script>
+<template>
+  <h2>Reactivity Two</h2>
+  <button @click="addCount">Count is {{ count }}</button>
+</template>
 
-  <h2>clickイベント</h2>
-  <!-- クリックをVueに渡す。 -->
-  <button @click="clickBTN">クリック！</button>
-  <!-- ダブルクリックは渡せない。 --> 
-  <button @dbclick="dbClickBTN">ダブルクリックが効かない！</button>
-  <!-- マウスのenter, leave つまりマウスをかざす動作を渡す。
-        2つの動作をひとつにまとめたい。--> 
-  <button @mouseenter="mouseEnter">マウスをかざす</button>
-  <button @mouseleave="mouseLeave">マウスが通過する</button>
-  <!-- クリックしたタイミングで引数を渡すことができる。
-        また、引数を他の変数に渡すこともできる。 -->
-  <button @click="clickBtnArg('hello'), clickBtnArgAnother('こんにちは')">2つのイベントを起動させる</button>
 
-  <h2>eventオブジェクト</h2>
-  <!-- $eventを渡すとHTMLをやり取りすことになる。
-        背景色を変える。toggleしたい!! -->
-  <button @click="clickOnEvent($event)">イベントを渡す</button>
+<script setup>
+  // Three-1
+  // reactive な変数を定義する。
+  // カウントアップの動作部はtmplate内で実行する。
+  // reactive 関数
+  //   reactive では引数：オブジェクトを取る。
 
-  <h2>event修飾子</h2>
-  <!-- イベント名の後に.修飾子をつけることで機能を追加することができる。-->
-  <!-- 例えば form タグの submit が実行されるとページのリロードが
-        必ず行われます。ページのリロードを防ぐためには event オブジェクトを
-        利用して event.preventDefault を実行する必要があります。-->
+  import { reactive } from 'vue'
+  // インスタンス『state』に『count』メソッドを送信して値を得る。
+  const state = reactive({
+    count: 0
+  });
+</script>
+<template>
+  <h2>Reactivity Three-1</h2>
+  <button @click="state.count++">Count is {{ state.count }}</button>
+</template>
 
-  <form action="" @submit="send">
-    <button>送信ボタンを押す=>コンソールにsendが残らない</button>
-  </form>
 
-  <!-- preventDefaultを使う -->
-  <form action="" @submit="pdSend($event)">
-    <button>preventDefaultを適用した送信</button>
-  </form>
+<script setup>
+  // Three-2
+  // 先ほどはtemplate内で動作部を実行したが、今回はscript内で実行させる。
+  // reactive()関数で生成したインスタンスに関数を定義する
+  import { reactive } from 'vue'
+  const state = reactive({
+    count: 0
+  })
+  const addCount = () => {
+    state.count++
+  };
+</script>
+<template>
+  <h2>Reactivity Three-2</h2>
+  <button @click="addCount">Reactive Count is {{ state.count }}</button>
+</template>
 
-  <!-- イベント修飾子版 --> 
-  <form action="" @submit.prevent="pdSendModifier">
-    <button>イベント修飾子を使う</button>
-  </form>
+
+-->
+<script setup>
+  // Five
+  // ref関数は、template内で動作部を実行することができない。
+  // ref関数で生成したインスタンスに関数を定義する
+  // ref関数を設定する
+  import { ref } from 'vue';
+  const state = ref({
+    count: 0
+  });
+  const addCount = () => {
+    state.value.count++;
+  };
+</script>
+<template>
+  <h2>Reactivity Four</h2>
+  <button @click="addCount">Ref Count is {{ state.count }}</button>
 </template>
 
 <style scoped>
