@@ -30,11 +30,16 @@ textarea {
   padding-top: 50px;
 }
 
-h1 {
+h1, h2 {
   font-size: 2rem;
   font-weight: 900;
   line-height: 1;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 30px 0px 20px;
 }
 
 p {
@@ -42,4 +47,20 @@ p {
   font-weight: 500;
   line-height: 1.7;
   letter-spacing: 0.1em;
+}
+
+.obj-in-arr {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.obj-in-arr li {
+  display: flex;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.obj-in-arr li span {
+  width: 60px;
+  margin-right: 10px;
+  text-align: right;
 }/*# sourceMappingURL=style.css.map */
