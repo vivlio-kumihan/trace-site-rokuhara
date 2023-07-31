@@ -28,6 +28,7 @@ textarea {
   flex-direction: column;
   align-items: center;
   padding-top: 50px;
+  text-transform: capitalize;
 }
 
 h1, h2 {
@@ -49,18 +50,16 @@ p {
   letter-spacing: 0.1em;
 }
 
-.obj-in-arr {
-  display: flex;
-  flex-direction: column;
-  margin-top: 30px;
+input {
+  margin: 30px;
+  padding: 5px;
+  border-radius: 5px;
 }
-.obj-in-arr li {
-  display: flex;
-  margin-bottom: 10px;
-  line-height: 1;
-}
-.obj-in-arr li span {
-  width: 60px;
-  margin-right: 10px;
-  text-align: right;
+
+button {
+  padding: 5px 10px;
+  color: #fff;
+  background-color: blue;
+  border: unset;
+  border-radius: 5px;
 }/*# sourceMappingURL=style.css.map */
