@@ -1,172 +1,309 @@
 <!-- $ npm run dev -->
 
-<!-- Form -->
-
-<!-- ReactiveではないFormの状態 -->
+<!-- Computed property -->
+<!-- 
+定義済みの変数を利用して計算、加工を行うことで
+元のデータとは異なる形でユーザに表示することが
+できる機能。 -->
+<!-- 
+Computed propertyを定義した場合は 
+reactive な変数が更新されるとその更新に
+合わせて再計算、再加工が自動で行われます。
+-->
+<!-- 
+reactive()関数を使ってオブジェクトに値を代入
+HTMLで出力する。
+-->
 <!-- 
 <script setup>
-  const message = 'hello world'
-  const clickButton = () => {
-    console.log(message)
-  }
+  import { reactive } from 'vue';
+  const user = reactive({
+    firstName: 'Nobuyuki',
+    lastName: 'Takahiro'
+  });
 </script>
-
 <template>
-  <h1>Form</h1>  
-  <p>{{ message }}</p>
-  <input type="text" v-model="message">
-  <div><button @click="'clickButton'">click</button></div>
+  <h1>Computed Property</h1>
+  <h2>fullName: {{ user.firstName }} {{ user.lastName }}</h2>
 </template>
 -->
 
-<!-- ref()関数を使ってみる。
-  v-model ディレクティブを利用することで input 要素で
-  入力した値と reactive な変数を同期させることができる。
-
-  v-model ディレクティブを利用している場合に input 要素に
-  value 属性を設定してエラーになるため利用することはできない。
-  placehoder 属性を利用することはできる。-->
-<!--  
+<!-- computed propertyを使って表示させる。  -->
+<!-- 
 <script setup>
-  import { ref } from 'vue'
-  const message = ref('hello world')
-  const clickButton = () => {
-    console.log(message.value)
-  }
-  </script>
+  import { reactive, computed } from 'vue'
+  const user = reactive({
+    firstName: 'Nobuyuki',
+    lastName: 'Takarhiro'
+  });
+  // returnを付けたらいけた。
+  // const fullName = computed(() => {
+  //   return `${ user.firstName } ${ user.lastName }`
+  // });
+  // ショートハンド
+  const fullName = computed(() => `${ user.firstName } ${ user.lastName }`);
+</script>
+<template>
+  <h1>Computed Property</h1>
+  <h2>fullName: {{ fullName }}</h2>
+</template>
+-->
+
+<!-- リストと分岐の動作確認 -->
+<!-- 
+定義済みの変数を Computed propertyで
+加工することでユーザに表示している。
+-->
+<!-- 
+<script setup>
+  import { computed } from 'vue'
+  const user = [
+    { id: 1, name: '髙廣信之', email: 'nob@email.com', admin: true },
+    { id: 2, name: '髙廣和恵', email: 'kazu@email.com', admin: false },
+    { id: 3, name: '髙廣茉李', email: 'mari@email.com', admin: false }
+  ]
+  const adminUser = computed(() => {
+    return user.filter((user) => user.admin === true)
+  })
+</script>
+<template>
+  <h1>リストと分岐の動作確認</h1>
+  <div v-for="user in adminUser" :key="user.id">
+    <div>{{ user.id }}番: {{ user.name }}, email: {{ user.email }}</div>
+  </div>
+</template>
+-->
+
+<!-- Computed VS Function -->
+<!-- 
+マスタッシュの中で関数を利用する場合は Computed propertyと異なり
+関数の名前の後ろに()が必要です。
+-->
+<!-- 
+利点: Computed propertyはキャッシュ機能を持っている。
+-->
+<!-- 
+<script setup>
+  import { reactive, computed } from 'vue'
+  const user = reactive({
+    firstName: 'nobuyuki',
+    lastName: 'takahiro'
+  })
+  const fullName = () => `${ user.firstName } ${ user.lastName }`
+</script>
+<template>
+  <h1>Computed VS Function</h1>
+  <h2>fullName: {{ fullName() }}</h2>
+</template>
+-->
+
+<!-- ちょっと横道: 関数を変数で持ち運べる。 -->
+<!-- 
+<script setup>
+  import { reactive, computed } from 'vue'
+  const user = reactive({
+    firstName: 'nobuyuki',
+    lastName: 'takahiro'
+  })
+  const randomNum = Math.floor(Math.random() * 10) + 1
+  // returnや{}省略してもかけた。
+  // const fullName = () => { return `${ user.firstName } ${ user.lastName}` }
+  const fullName = () => 
+    `${ randomNum } ${ user.firstName } ${ user.lastName}`
+    // `${ Math.random() } ${ user.firstName } ${ user.lastName}`
+
+  const cmpFullName = computed(() => 
+    `${ randomNum } ${ user.firstName } ${ user.lastName }`)
+    // `${ Math.random() } ${ user.firstName } ${ user.lastName }`)
+
+  // Array(5).fill().forEach(() => {
+  //   console.log(num)
+  // })
+</script>
+-->
+<!-- 
+関数 =>
+  すべての fullName 関数の実行で Math.randam 関数が
+  実行されるため異なる値が表示される。
+
+Computed property => 
+  変数cFullName はキャッシュ機能を持っているため
+  一度 Math.randam 関数が実行されるだけで後は同じ値を保持する。
+-->
+<!-- 
+<script setup>
+  import { reactive, computed } from 'vue'
+  const user = reactive({
+    firstName: 'nobuyuki',
+    lastName: 'takahiro'
+  })
+  const fullName = () => 
+    `${ Math.floor(Math.random() * 10) + 1 } ${ user.firstName } ${ user.lastName}`
   
-  <template>
-  <h1>Form</h1>
-  <p>{{ message }}</p>
-  <input type="text" v-model="message">
-  <div><button @click="clickButton">click</button></div>
-  </template>
+  const cmpFullName = computed(() => 
+    `${ Math.floor(Math.random() * 10) + 1 } ${ user.firstName } ${ user.lastName }`)
+
+</script>
+<template>
+  <h1>Function</h1>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h1>Computed</h1>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <h2>fullName: {{ cmpFullName }}</h2>
+</template>
 -->
 
-<!-- reactive()関数を使ってみる。
-      引数にオブジェクトで設定を行う。
-
-      v-model ディレクティブを利用している場合に input 要素に
-    　value 属性を設定してエラーになるため利用することはできない。
-      placehoder 属性を利用することはできる。
+<!-- Computed propertyのキャッシュ機能の再確認 -->
+<!-- 
+v-model directive(命令・指令)に値を代入し状態を変化させる。
+つまり、文字を入力、削除する度に状態が変化する中で、
+Computed propertyの Math.randam の値はすべての cmpfullName で一緒。
+fullName は文字を変更する度に
+すべての fullName で Math.random が実行される。
+状態の持ち方の違いを実感できるようにコードの流れを暗記してしまう。
 -->
 <!-- 
 <script setup>
-  import { reactive } from 'vue'
-  const form = reactive({
-    message: 'hello world'
+  import { reactive, computed } from 'vue'
+  const user = reactive({
+    firstName: 'nobuyuki', lastName: 'takahiro'
   })
-  const clickButton = () => {
-    console.log(form.message)
-  }
-  </script>
+  const fullName = () => 
+    `${ Math.floor(Math.random() * 10) + 1 } ${ user.firstName } ${ user.lastName}`
   
-  <template>
-  <h1>Form</h1>
-  <p>{{ form.message }}</p>
-  <input type="text" v-model="form.message">
-  <div><button @click="clickButton">click</button></div>
-  </template>
+  const cmpFullName = computed(() => 
+    `${ Math.floor(Math.random() * 10) + 1 } ${ user.firstName } ${ user.lastName }`)
+</script>
+<template>
+  <h1>Function</h1>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h1>Computed</h1>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <input type="text" v-model="user.firstName">
+</template>
 -->
 
-<!-- Modifiers(修飾子)を使ってみる。-->
-<!-- v-model には修飾子を設定することができ修飾子を利用することで
-      v-model の動作を変更することができる。
-      lazy
-      trim
-      number
--->
-
-<!-- 
-laze
-  input 要素に文字を入力すると即時に reactive な変数へ反映されていた。
-  修飾子を lazy をつけることで文字の入力毎ではなく
-  input 要素に入力後、エンターを押したら反映される。
-  この挙動は気持ちいい。
--->
+<!-- タイミングを確認してみる -->
+<!-- コンソールに出力して確認してみる。 -->
 <!-- 
 <script setup>
-  import { reactive } from 'vue'
-  const form = reactive({
-    message: 'hello world'
+  import { reactive, computed } from 'vue'
+  const user = reactive({
+    firstName: 'nobuyuki', lastName: 'takahiro'
   })
-  const clickButton = () => {
-    console.log(form.message)
+  const fullName = () => {
+    console.log('Function fire')
+    return `${ Math.floor(Math.random() * 10) + 1 } ${ user.firstName } ${ user.lastName}`
   }
+  
+  const cmpFullName = computed(() => {
+    console.log('Computed fire')
+    return `${ Math.floor(Math.random() * 10) + 1 } ${ user.firstName } ${ user.lastName }` 
+  });
 </script>
-
 <template>
-  <h1>Form</h1>
-  <p>{{ form.message }}</p>
-  <input type="text" v-model.lazy="form.message">
-  <div><button @click="clickButton">click</button></div>
+  <h1>Function</h1>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h1>Computed</h1>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <input type="text" v-model="user.firstName">
 </template>
 -->
 
+<!-- ref関数で定義してみる -->
 <!-- 
-trim
-  input 要素の先頭や最後に空白がある場合取り除きたい場合に
-  修飾子の trim をつけることで自動で取り除いてくれる。
-  入力の段階では前後の空白は入力したまま反映されるが、
-  クリックボタンを押した瞬間に trim が作動する。
+ref()関数でカウンターを作る。
+ボタンを押してカウントアップさせる度に状態が変化する。
+Functionとcomputed propertyの違いを見る。
 -->
-
 <!-- 
 <script setup>
-  import { reactive } from 'vue'
-  const form = reactive({
-    message: 'hello world'
+  import { reactive, computed, ref } from 'vue'
+  const count = ref(0)
+  const user = reactive({
+    firstName: 'nobuyuki', lastName: 'takahiro'
   })
-  const clickButton = () => {
-    console.log(form.message)
+  const fullName = () => {
+    console.log('Function fire')
+    return `${ Math.floor(Math.random() * 10) + 1 } ${ user.firstName } ${ user.lastName}`
   }
+  const cmpFullName = computed(() => {
+    console.log('Computed Property fire')
+    return `${ Math.floor(Math.random() * 10) + 1 } ${ user.firstName } ${ user.lastName }` 
+  });
 </script>
-
 <template>
-  <h1>Form</h1>
-  <p>{{ form.message }}</p>
-  <input type="text" v-model.trim="form.message">
-  <div><button @click="clickButton">click</button></div>
+  <h1>Function</h1>
+  <h2>fullName: {{ fullName() }}</h2>
+  <h1>Computed</h1>
+  <h2>fullName: {{ cmpFullName }}</h2>
+  <button type="button" @click="count++">count is {{ count }}</button>
 </template>
 -->
 
+<!-- Computed Setter 1 -->
+<!-- computed propertyはREAD ONLYと怒られる。 -->
 <!-- 
-number
-  JavaScript では input 要素に入力した値を取得すると
-  文字列として扱う。
-  数字とし取得したい場合は修飾子の number を設定することで
-  数値として取得する。
-  type属性 => number: Vue が自動で number に変換する。
-  type属性 => text: この時に有効。
+<script setup>
+import { reactive, computed } from 'vue'
+const user = reactive({
+  firstName: 'Jone',
+  lastName: 'Lennon'
+})
+const fullName = computed(() => {
+  return `${ user.firstName } ${ user.lastName }`
+})
+const changeName = () => {
+  fullName.value = 'Paul McCartny'
+};
+</script>
+<template>
+  <h1>Computed Setter</h1>
+  <h2>fullName: {{ fullName }}</h2>
+  <button @click="changeName">changeName</button>
+</template> 
+-->
 
-  v-model="form.message"
-      最初は設定通り数列が入力されている。
-      文字列入れる => string
-      数列入れる => string
-
-  v-model.number="form.message"
-      最初は設定通り数列が入力されている。
-      文字列入れる => string
-      数列入れる => number
-  とちゃんと見分けてくれる。
-  入力されたのが文字列か数列で振り分け作業ができることがわかる。
+<!-- Computed Setter 2 -->
+<!-- 
+Computed Prepertyを使って更新を行いたい場合は直接ではなく
+Setter を利用する必要がある。
 -->
 <script setup>
-  import { reactive } from 'vue'
-  const form = reactive({
-    message: 12345
-  })
-  const clickButton = () => {
-    console.log(typeof form.message)
-  };
+import { reactive, computed } from 'vue'
+const user = reactive({
+  firstName: 'Jone',
+  lastName: 'Lennon'
+})
+const fullName = computed({
+  get() {
+    return `${ user.firstName } ${ user.lastName }`
+  },
+  set(newValue) {
+    const tmpName = newValue.split(' ')
+    user.firstName = tmpName[0]
+    user.lastName = tmpName[tmpName.length - 1]
+  }
+})
+const changeName = () => {
+  fullName.value = 'Paul McCartny'
+};
 </script>
-
 <template>
-  <h1>Form</h1>
-  <p>{{ form.message }}</p>
-  <input type="text" v-model.number="form.message">
-  <div><button @click="clickButton">click</button></div>
+  <h1>Computed Setter</h1>
+  <h2>fullName: {{ fullName }}</h2>
+  <button @click="changeName">changeName</button>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
