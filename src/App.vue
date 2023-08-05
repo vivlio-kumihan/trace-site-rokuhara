@@ -78,6 +78,7 @@
 2つの props を渡したい場合には、
 名前の異なる属性名を2つ追加してそれぞれに値を設定する。
 -->
+<!-- 
 <script setup>
   import PropsComp from './components/PropsCompMuliti.vue'
 </script>
@@ -85,6 +86,57 @@
   <h1>Vue3を学ぶ</h1>
   <PropsComp message="こんにちは" name="John" />
 </template>
+-->
+
+<!-- 初期値の設定 -->
+
+<!-- session 1 -->
+<!-- 
+コンポーネント側で設定された変数をPropsComp要素で使わなくても
+問題なくHTMLに描写できる。
+-->
+<!-- 
+<script setup>
+import PropsComp from './components/InitValue.vue'
+</script>
+<template>
+  <h1>Vue3を学ぶ</h1>
+  <PropsComp message="こんにちは" />
+</template>
+-->
+
+<!-- session 2 -->
+<!-- 
+変数の初期値を設定
+PropsComp要素で属性を指定しなければコンポーネント側で設定している
+値が出力される仕組み。
+-->
+<!-- 
+<script setup>
+import PropsComp from './components/InitValue.vue'
+</script>
+<template>
+  <h1>Vue3を学ぶ</h1>
+  <PropsComp message="こんにちは" />
+  <PropsComp message="こんにちは" name="george" />
+</template>
+-->
+
+<!-- session 3 -->
+<!-- 
+属性がなければ警告が出る仕様にする方法
+-->
+<!-- 
+<script setup>
+import PropsComp from './components/InitValue.vue'
+</script>
+<template>
+  <h1>Vue3を学ぶ</h1>
+  <PropsComp name="paul"/>
+  <PropsComp message="こんにちは" name="linda" />
+</template>
+-->
+
 
 <style>
   #app {
