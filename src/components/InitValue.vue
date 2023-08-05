@@ -29,7 +29,7 @@ const props = defineProps({
 
 <!-- session 3 -->
 <!-- 属性がなければ警告が出る仕様にする方法 -->
-
+<!-- 
 <script setup>
 const props = defineProps({
   message: {
@@ -43,4 +43,4 @@ const props = defineProps({
   <h2>初期値の設定について</h2>
   <p>{{ props.message }}, {{ props.name }}</p>
 </template>
-
+-->

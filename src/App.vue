@@ -137,6 +137,31 @@ import PropsComp from './components/InitValue.vue'
 </template>
 -->
 
+<!-- 様々なクラスへ渡す -->
+<!-- 
+
+-->
+
+<script setup>
+import PropsComp from './components/VariousClass.vue'
+</script>
+<template>
+  <h1>Vue3を学ぶ</h1>
+  <!-- 数列クラスを渡す -->
+  <!-- 数列クラスで設定されているが、文字列を渡している旨警告が出る。 -->
+  <!-- <PropsComp price="100" /> -->
+
+  <!-- 解決法は、v-bind -->
+  <!-- 
+  <PropsComp v-bind:price="100" />
+  -->
+  <PropsComp :price="150" />
+
+  <!-- 真偽値クラスを渡す -->
+  <PropsComp :isAdmin="false" />
+</template>
+
+
 
 <style>
   #app {
