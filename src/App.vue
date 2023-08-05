@@ -139,14 +139,12 @@ import PropsComp from './components/InitValue.vue'
 
 <!-- 様々なクラスへ渡す -->
 <!-- 
-
--->
-
 <script setup>
 import PropsComp from './components/VariousClass.vue'
 </script>
 <template>
   <h1>Vue3を学ぶ</h1>
+-->
   <!-- 数列クラスを渡す -->
   <!-- 数列クラスで設定されているが、文字列を渡している旨警告が出る。 -->
   <!-- <PropsComp price="100" /> -->
@@ -155,13 +153,61 @@ import PropsComp from './components/VariousClass.vue'
   <!-- 
   <PropsComp v-bind:price="100" />
   -->
-  <PropsComp :price="150" />
+  <!-- <PropsComp :price="150" /> -->
 
   <!-- 真偽値クラスを渡す -->
-  <PropsComp :isAdmin="false" />
+  <!-- <PropsComp :isAdmin="false" /> -->
+<!--   
 </template>
+-->
 
+<!-- reactiveな変数を渡したい場合 -->
+<!-- 
+親コンポーネントで定義した reactive な変数を
+props を利用して子コンポーネントに渡す方法。
+-->
+<!-- 
+<script setup>
+import ReactiveValue from './components/ReactiveValue.vue'
+import { ref } from 'vue'
+const name = ref('john');
+</script>
+ -->
+<!-- 
+  これでは、ref 関数の初期値に設定した"John"が表示されない。
+  reactive な変数を props で利用したい場合には
+  v-bind を利用する必要がある。
+-->
+<!-- 
+<template>
+  <h1>Vue 3 入門</h1>
+  <ReactiveValue name="name" />
+</template>
+-->
+<!-- v-bindディレクティブで解決させる。 -->
+<!-- 
+<template>
+  <h1>Vue 3 入門</h1>
+  <ReactiveValue :name="name" />
+</template>
+-->
 
+<!-- reactiveな変数を更新する -->
+
+<script setup>
+import { ref } from 'vue'
+import ReactiveValue from './components/ReactiveValue.vue'
+const name = ref('john')
+const changeName = () => {
+  name.value = 'yoko'
+};
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <ReactiveValue :name="name" />
+  <button @click="changeName">Change Name</button>
+</template>
 
 <style>
   #app {
