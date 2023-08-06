@@ -172,7 +172,7 @@ import ReactiveValue from './components/ReactiveValue.vue'
 import { ref } from 'vue'
 const name = ref('john');
 </script>
- -->
+-->
 <!-- 
   これでは、ref 関数の初期値に設定した"John"が表示されない。
   reactive な変数を props で利用したい場合には
@@ -193,7 +193,24 @@ const name = ref('john');
 -->
 
 <!-- reactiveな変数を更新する -->
-
+<!-- 
+reative な変数なので親コンポーネントで値を変更した場合に
+子コンポーネントで表示されている値が更新されるのかを確認する。
+-->
+<!-- 
+  name: 'yoko'　オブジェクトではダメ
+  オブジェクトにメソッドを送信して値を得る。 
+-->
+<!-- 
+親子コンポーネントでbuttonをクリックすると、
+changeName関数が発火してname変数の値を変える。
+変更された値が子コンポーネントのpropsに渡り、
+template要素へ反映される。
+-->
+<!-- 
+propsを子コンポーネントで直接更新してはいけないというルールがあるそう。
+-->
+<!-- 
 <script setup>
 import { ref } from 'vue'
 import ReactiveValue from './components/ReactiveValue.vue'
@@ -202,12 +219,54 @@ const changeName = () => {
   name.value = 'yoko'
 };
 </script>
-
 <template>
   <h1>Vue 3 入門</h1>
   <ReactiveValue :name="name" />
   <button @click="changeName">Change Name</button>
 </template>
+-->
+
+<!-- 確認してみる。 -->
+<!-- 
+  [Vue warn] Set operation on key "name" failed: target is readonly.  
+  とコンソールに警告され命令は実行できない。
+-->
+<!-- 
+<script setup>
+import { ref } from 'vue'
+import ReactiveValue from './components/ReactiveValue.vue'
+const name = ref('john');
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <ReactiveValue :name="name" />
+</template> 
+-->
+
+<!-- 
+ただし、propsで受け取る型をStringからObjectに変更したら命令は難なく通ってしまう。
+確認してみる。これでは原則の意味がなくなる。
+-->
+<!-- 
+<script setup>
+import { ref } from 'vue'
+import ReactiveValue from './components/ReactiveValue.vue'
+const person = ref({
+  name: 'John'
+});
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <ReactiveValue :person="person" />
+</template>
+-->
+<!-- 
+親コンポーネントで定義したreactiveな変数を
+子コンポーネントでコンポーネントで更新したい場合
+`emit`イベントを使う。後で説明されるらしい。
+-->
 
 <style>
   #app {
@@ -218,8 +277,5 @@ const changeName = () => {
   }
   div {
     margin-top: 20px;
-  }
-  button:last-of-type {
-    margin-left: 30px;
   }
 </style>
