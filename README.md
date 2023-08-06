@@ -1,5 +1,30 @@
 # Vue3 入門
 
+## 属性を操作する
+<!-- 
+v-bindでstyle属性にアクセス。オブジェクトの値に変数を格納。
+script要素で値を代入されたものがHTML上で展開する。
+ -->
+```html
+<script setup>
+// 変数を生成させるときには十分に注意する。
+let colorRed = 'red'
+let fontWeight = '900'
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <p v-bind:style="{ color: colorRed, fonrWeight: fontWeight }">hello</p>
+  <p :style="{ color: colorRed, fonrWeight: fontWeight }">hello</p>
+</template>
+
+<style scoped>
+  .active {
+    color: #f00;
+    font-weight: 900;
+  }
+```
+
 ## クラス属性を操作する
 
 ### v-bindディレクティブで真偽値を使いクラスをtoggleする。
@@ -75,16 +100,6 @@ const flag = true;
 </template>
 ```
 
-### if条件分岐でコントロール
-
-```html
-<template>
-  <h1>Vue 3 入門</h1>
-  <!-- 条件に合わせて複数のクラスをtogglできる。-->
-  <p :class="flag ? 'active' : 'underLine active'">if条件節で判定</p>
-</template>
-```
-
 ## 関数を使う
 
 ディレクティブの値としてtemplate要素の中に埋め込む変数。
@@ -109,5 +124,53 @@ const flag = true;
   <p v-text="message"></p>
   <!-- こちらはマスタッシュで展開 -->
   <p>{{ message }}</p>
+</template>
+```
+
+### if条件分岐でコントロール
+
+#### if条件節で判定
+
+条件に合わせて複数のクラスをtogglできる。
+
+```html
+<template>
+  <h1>Vue 3 入門</h1>
+  <p :class="flag ? 'active' : 'underLine active'">if条件節で判定</p>
+</template>
+```
+
+#### if条件文
+
+if条件文論理だての基本。
+- 1 = true, 0 = false
+- v-if      〇〇より多くあり、
+- v-else-if 〇〇と同じ、
+- v-else    それ以外は
+
+```html
+<script setup>
+  const stock = 0
+</script>
+
+<template>
+  <p v-if="stock > 5">在庫あり</p>
+  <p v-else-if="stock === 0">在庫なし</p>
+  <p v-else>在庫僅少</p>
+</template>
+```
+
+#### v-if, v-showの違い
+
+v-if    => false => 完全に存在を消す
+v-show  => false => display: none つまり、システムに優しい。
+
+```html
+<script setup>
+const flag = false
+</script>
+<template>
+  <p v-if="flag">真偽値でtoggleする。</p>
+  <p v-show="flag">真偽値でtoggleする。</p>
 </template>
 ```
