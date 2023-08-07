@@ -59,8 +59,7 @@ inheritAttrs パラメータを false にすることで対応する。
 下記のコードでは div タグへの class の適用はなくなり、
 $attrs.class を設定している p タグのみに class が適用される。
 -->
-
-
+<!-- 
 <script>
 export default { inheritAttrs: false }
 </script>
@@ -72,6 +71,64 @@ export default { inheritAttrs: false }
     <h2 class="info">子コンポーネント</h2>
     <p :class="$attrs.class">class属性の渡し方を確認中</p>
   </div>
-  <!-- <h2 class="info">子コンポーネント</h2>
-  <p :class="$attrs.class">class属性の渡し方を確認中</p> -->
 </template>
+-->
+
+<!-- 【useAttrsによる属性の取得】 -->
+<!-- 
+  $attrsを利用することで子コンポーネントのタグに設定した
+  class属性の設定値を子コンポーネントで利用できることがわかった。
+  scriptタグ内で $attrs に含まれる値を確認したい場合には、
+  useAttrs を利用することができる。
+-->
+<!-- 
+<script>
+export default { inheritAttrs: false }
+</script>
+
+<script setup>
+// $attrsではなく、useAttrs()関数を使ってみる。
+import { useAttrs } from 'vue';
+const attrs = useAttrs();
+// コードの中で$attrsを使っていることがわかる。
+console.log(attrs)
+// ```console
+// <target>: {…}, <handler>: {…} }
+// ​<target>: Object { class: "active", … }
+// __vInternal: 1
+// ````
+</script>
+
+<template>
+  <div>
+    <h2 class="info">子コンポーネント</h2>
+    // $attrs => attrsへ切り替える。
+    <p :class="attrs.class">class属性の渡し方を確認中</p>
+  </div>
+</template>
+-->
+
+<!-- 
+では、useAttrs を使って class 属性以外の id, style 属性を
+子コンポーネントに渡すことができるか確認する。
+-->
+
+<script>
+export default { inheritAttrs: false }
+</script>
+
+<script setup>
+import { useAttrs } from 'vue';
+const attrs = useAttrs();
+console.log(attrs)
+</script>
+
+<template>
+  <div>
+    <h2 class="info">子コンポーネント</h2>
+    <p :id="attrs.id">id属性の渡し方を確認中</p>
+    <p :class="attrs.class">class属性の渡し方を確認中</p>
+    <p :style="attrs.style">style属性の渡し方を確認中</p>
+  </div>
+</template>
+

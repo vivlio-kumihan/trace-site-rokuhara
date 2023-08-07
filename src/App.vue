@@ -382,7 +382,7 @@ export default
 意訳になる。ここで生成されたインスタンスを親コンポーネントへ送信する際
 デフォルトのパラメータはオブジェクトの値ですと言っている。
 -->
-
+<!-- 
 <script setup>
 import KlassAttrToCompVue from "./components/KlassAttrToComp.vue"
 </script>
@@ -390,6 +390,39 @@ import KlassAttrToCompVue from "./components/KlassAttrToComp.vue"
 <template>
   <h1>Vue 3 入門</h1>
   <KlassAttrToCompVue class="active" />
+</template>
+-->
+
+<!-- 【useAttrsによる属性の取得】 -->
+<!-- 
+  $attrsを利用することで子コンポーネントのタグに設定した
+  class属性の設定値を子コンポーネントで利用できることがわかった。
+  scriptタグ内で $attrs に含まれる値を確認したい場合には、
+  useAttrs を利用することができる。
+-->
+<!-- 
+<script setup>
+import KlassAttrToCompVue from "./components/KlassAttrToComp.vue"
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <KlassAttrToCompVue class="active" />
+</template>
+-->
+
+<!-- 
+では、useAttrs を使って class 属性以外の id, style 属性を
+子コンポーネントに渡すことができるか確認する。
+-->
+
+<script setup>
+import KlassAttrToCompVue from "./components/KlassAttrToComp.vue"
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <KlassAttrToCompVue id="main" class="active" style="color: red" />
 </template>
 
 
