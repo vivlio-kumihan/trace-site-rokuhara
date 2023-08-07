@@ -1,4 +1,4 @@
-<!-- reactiveな変数を更新する -->
+<!-- 【reactiveな変数を更新する】 -->
 <!-- 
 <script setup>
 const props = defineProps({
@@ -11,6 +11,10 @@ const props = defineProps({
 </template>
 -->
 
+<!-- 
+【『渡された props を子コンポーネントで直接更新してはいけない』というルールの理解を
+深めるために子コンポーネントで props を更新できるか確認する。】
+-->
 <!-- 変数が文字列の場合を確認してみる -->
 <!-- 
 <script setup>
@@ -30,7 +34,7 @@ const changeName = () => {
 -->
 
 <!-- 変数がオブジェクトの場合を場合を確認してみる -->
-<!-- 
+
 <script setup>
 const props = defineProps({
   person: Object
@@ -45,4 +49,4 @@ const changeName = () => {
   <p>Hello {{ props.person.name }}</p>
   <button @click="changeName">Change Name</button>
 </template> 
--->
+

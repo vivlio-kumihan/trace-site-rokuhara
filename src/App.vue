@@ -177,14 +177,16 @@ const name = ref('john');
   これでは、ref 関数の初期値に設定した"John"が表示されない。
   reactive な変数を props で利用したい場合には
   v-bind を利用する必要がある。
+  なるほど、Vueが管理する変数はVueの仕来たりに従えってことか。
 -->
+<!-- HTML属性への代入ではダメ -->
 <!-- 
 <template>
   <h1>Vue 3 入門</h1>
   <ReactiveValue name="name" />
 </template>
 -->
-<!-- v-bindディレクティブで解決させる。 -->
+<!-- v-bindディレクティブ属性で解決する。 -->
 <!-- 
 <template>
   <h1>Vue 3 入門</h1>
@@ -192,7 +194,7 @@ const name = ref('john');
 </template>
 -->
 
-<!-- reactiveな変数を更新する -->
+<!-- 【reactiveな変数を更新する】 -->
 <!-- 
 reative な変数なので親コンポーネントで値を変更した場合に
 子コンポーネントで表示されている値が更新されるのかを確認する。
@@ -208,8 +210,17 @@ changeName関数が発火してname変数の値を変える。
 template要素へ反映される。
 -->
 <!-- 
-propsを子コンポーネントで直接更新してはいけないというルールがあるそう。
+重要なことは、
+propsを子コンポーネントで直接更新してはいけないというルールがあるということ。
 -->
+<!-- 
+Vueが管理するインスタンスになった。セッターとしてのメソッドも持っているということ。
+ただし、子コンポーネントではこのreactiveな変数はString型と定義している。
+ということは、
+reactiveな変数はObjectのように振る舞えると解釈することにする。 
+-->
+<!-- const name = ref('john') -->
+<!-- name.value = 'yoko' -->
 <!-- 
 <script setup>
 import { ref } from 'vue'
@@ -226,11 +237,12 @@ const changeName = () => {
 </template>
 -->
 
-<!-- 確認してみる。 -->
 <!-- 
-  [Vue warn] Set operation on key "name" failed: target is readonly.  
-  とコンソールに警告され命令は実行できない。
+【『渡された props を子コンポーネントで直接更新してはいけない』というルールの理解を
+深めるために子コンポーネントで props を更新できるか確認する。】
 -->
+<!-- 変数が文字列の場合を確認してみる -->
+
 <!-- 
 <script setup>
 import { ref } from 'vue'
@@ -243,10 +255,15 @@ const name = ref('john');
   <ReactiveValue :name="name" />
 </template> 
 -->
-
+<!-- 
+結果は、
+- 命令は実行されない。
+- [Vue warn] Set operation on key "name" failed: target is readonly.  
+とコンソールに警告される。
+-->
 <!-- 
 ただし、propsで受け取る型をStringからObjectに変更したら命令は難なく通ってしまう。
-確認してみる。これでは原則の意味がなくなる。
+確認してみる。
 -->
 <!-- 
 <script setup>
@@ -260,13 +277,121 @@ const person = ref({
 <template>
   <h1>Vue 3 入門</h1>
   <ReactiveValue :person="person" />
-</template>
+</template> 
 -->
 <!-- 
-親コンポーネントで定義したreactiveな変数を
-子コンポーネントでコンポーネントで更新したい場合
-`emit`イベントを使う。後で説明されるらしい。
+結果は、普通に通ってしまう。
+こういう書き方はしてはいけない。出来るけどしない態度を取るのが教養ってやつか。
+親コンポーネントで定義したreactiveな変数を子コンポーネントで更新したい場合は、
+`emit`イベントを使うらしい。後で説明する。
 -->
+
+<!-- 【class属性の設定を渡す】 -->
+<!-- 
+コンポーネントでは props を利用せずに id 属性や class 属性など
+コンポーネントタグに設定した属性を渡すことができる。
+この機能の名前は`fallthrough attribute`という。
+<h2 class="active">子コンポーネント</h2>
+という具合に子コンポーネントのh2要素にクラスを設定できる。
+-->
+<!-- 
+<script setup>
+import KlassAttrToComp from './components/KlassAttrToComp.vue'
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>  
+  <KlassAttrToComp class="active" />
+</template>
+-->
+
+<!-- では、子コンポーネントにクラスが設定してある場合の振る舞いを確認する。 -->
+<!-- 
+確認事項:
+- どちらかのクラスが上書きされることがなくマージされる。
+- class 属性は props とは別の仕組みで子コンポーネントに渡されること。
+-->
+<!-- 
+<script setup>
+import KlassAttrToComp from './components/KlassAttrToComp.vue'
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <KlassAttrToComp class="active" />
+</template>
+-->
+
+<!-- 子コンポーネントのルートの要素に2つの要素が存在する場合はどうなるか？ -->
+<!-- 
+ルートの要素に2つ以上の要素がある場合には、
+どこにもクラス属性は送信されない。 
+-->
+<!-- 
+<script setup>
+import KlassAttrToComp from './components/KlassAttrToComp.vue';
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <KlassAttrToComp class="active" />
+</template>
+-->
+
+<!-- 子コンポーネントの要素をdivで括るとその要素にクラス属性が付く。 -->
+<!-- 
+<script setup>
+import KlassAttrToComp from './components/KlassAttrToComp.vue';
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <KlassAttrToComp class="active"/>
+</template>
+-->
+
+<!-- 
+Hello タグで設定した class 属性をそのまま子コンポーネントのタグに指定したい
+場合には$attrsを利用する。
+pタグでclass属性にv-bindを設定し$attrs.class を設定する。
+ただし、divの挙動には注意が必要。場所によってclass属性が付いたりつかなかったりする。
+-->
+<!-- 
+<script setup>
+import KlassAttrToComp from './components/KlassAttrToComp.vue'
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <KlassAttrToComp class="active" />
+</template>
+-->
+
+<!-- 
+ルートの要素に class を適用させたくない場合は
+script タグを script setup タグとは別に追加し、
+inheritAttrs パラメータを false にすることで対応する。
+下記のコードでは div タグへの class の適用はなくなり、
+$attrs.class を設定している p タグのみに class が適用される。
+
+英語の知識:
+inherit => 継承する
+inheritAttrs　=> 属性を継承するパラメーターを無効にするという日本語なわけ。
+
+export default
+意訳になる。ここで生成されたインスタンスを親コンポーネントへ送信する際
+デフォルトのパラメータはオブジェクトの値ですと言っている。
+-->
+
+<script setup>
+import KlassAttrToCompVue from "./components/KlassAttrToComp.vue"
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>
+  <KlassAttrToCompVue class="active" />
+</template>
+
 
 <style>
   #app {
@@ -277,5 +402,12 @@ const person = ref({
   }
   div {
     margin-top: 20px;
+  }
+  .active {
+    font-weight: 900;
+    color: green;
+  }
+  .info {
+    border-bottom: 1px solid #333;
   }
 </style>
