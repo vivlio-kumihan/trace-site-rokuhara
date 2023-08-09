@@ -102,7 +102,7 @@ defineEmits 関数の引数では配列でイベント名の設定を行う。
 実行する際には defineEmits の戻り値の関数 emit に引数のイベント名を
 設定して実行する。
 -->
-
+<!-- 
 <script setup>
   const emit = defineEmits(['notification', 'click'])
   const sendNotification = () => {
@@ -117,7 +117,41 @@ defineEmits 関数の引数では配列でイベント名の設定を行う。
   <h2>子コンポーネント</h2>
   <button @click="sendNotification">通知</button>
   <button @click="sendClick">クリック</button>
+</template> 
+-->
+
+<!-- 【emit イベントを利用した更新】 -->
+<!-- 
+emit によって発生したイベントの通知を利用して、
+親コンポーネントで定義した reactive な変数の更新方法を確認する。
+- App.vue ファイルの中で ref 関数を利用して reactive な変数 name を定義する。
+- props を使って EmitNotification コンポーネントに name を渡す。
+- 子コンポーネント EmitNotification でこの後に定義を行う changeNameEvent イベントを検知して handleEvent 関数を実行し name の値を"Linda"にする。 
+-->
+
+<script setup>
+  const props = defineProps({
+    name: String
+  })
+
+  const emit = defineEmits(['changeNameEvent'])
+
+  // Hello コンポーネントではボタンをクリックすると changeName 関数を実行し、
+  // changeName 関数の中では changeNameEvent イベントを発生させる。
+  const changeName = () => {
+    emit('changeNameEvent')
+  };
+</script>
+
+<!-- 
+  "Change Name"ボタンをクリックすると changeNameEvent が発生して
+  親コンポーネントで changeNameEvent イベントを検知して handleEvent 関数を実行し、
+  reactive な変数である name の値を"John"から"Ken"に更新する。 
+-->
+<template>
+  <h2>子コンポーネント</h2>
+  <p>Hello {{ props.name }}</p>
+  <button @click="changeName">Change Name</button>
+  
 </template>
-
-
 <style></style>

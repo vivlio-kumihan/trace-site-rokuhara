@@ -116,7 +116,7 @@ defineEmits 関数の引数では配列でイベント名の設定を行う。
 実行する際には defineEmits の戻り値の関数 emit に引数のイベント名を
 設定して実行する。
 -->
-
+<!-- 
 <script setup>
   import EmitNTF from './components/EmitNotification.vue'
   const handleEvent = () => {
@@ -130,7 +130,32 @@ defineEmits 関数の引数では配列でイベント名の設定を行う。
 <template>
   <h1>Vue 3 入門</h1>
   <EmitNTF v-on:notification="handleEvent" v-on:click="clickEvent" />
-</template>
+</template> 
+-->
 
+<!-- 【emit イベントを利用した更新】 -->
+<!-- emit によって発生したイベントの通知を利用して親コンポーネントで定義した reactive な変数の更新方法を確認します。
+App.vue ファイルの中で ref 関数を利用して reactive な変数 name を定義します。props を使って Hello コンポーネントに name を渡します。子コンポーネント Hello でこの後に定義を行う changeNameEvent イベントを検知して handleEvent 関数を実行し name の値を"Ken"に更新します。 -->
+
+<script setup>
+  import { ref } from 'vue'
+  import EmitNotification from './components/EmitNotification.vue'
+
+  const name = ref('paul')
+  const handleEvent = () => {
+    name.value = 'linda'
+  };
+</script>
+
+<!-- 
+  emit を利用することで子コンポーネントで行われたユーザのアクションを元に
+  親コンポーネントの reactive の変数を更新する方法を理解することができました。
+  子コンポーネントはイベントで通知を行うだけで実際に更新を行うのは
+  更新が許されている通知を受け取った親コンポーネントです。 
+-->
+<template>
+  <h1>Vue 3 入門</h1>
+  <EmitNotification @changeNameEvent="handleEvent" :name="name"/>
+</template>
 
 <style></style>
