@@ -206,7 +206,7 @@ const flag = false
 
 オブジェクトのデータをul要素で出力する。
 
-__まずは、オブジェクトの値を出力してみる__
+#### まずは、オブジェクトの値を出力してみる
 
 ```html
 <script setup>
@@ -223,7 +223,7 @@ const objectItem = {
 </template>
 ```
 
-__オブジェクトのキーと値を明示して出力する__
+#### オブジェクトのキーと値を明示して出力する
 
 dl > template
 template > dl この違いが大きい。
@@ -240,9 +240,9 @@ templateで包含するとスタイルが効かなくなる。
 </dl>
 ```
 
-__複数のオブジェクトから値を出力する__
+#### 複数のオブジェクトから値を出力する
 
-その1 インスタンスのメソッドを充てる方法
+__その1 インスタンスのメソッドを充てる方法__
 
 ```html
 <script setup>
@@ -262,7 +262,7 @@ const users = [
 </template>
 ```
 
-その2 v-forで回す方法
+__その2 v-forで回す方法__
 
 二段構えで展開。
 `id`キーの出力がダブるので`v-if`で回避処理する。
@@ -278,5 +278,184 @@ const users = [
       </template>
     </template>
   </dl>
+</template>
+```
+
+#### 配列、オブジェクトの要素に対して、v-showで表示の振り分け
+
+先ほどのコードでは、
+`<template v-if="key !== 'id'">`
+を使って条件分岐させた。
+通常の要素を使い、システムへの負担を少なくして、admin情報の真偽値で振り分ける。 
+
+```html
+<script setup>
+const users = [
+  {id: 1, name: '髙廣信之', email: 'nob@email.com', admin: true},
+  {id: 2, name: '髙廣和恵', email: 'kaz@email.com', admin: false},
+  {id: 3, name: '髙廣茉李', email: 'mari@email.com', admin: false}
+];
+</script>
+
+<template>
+  <h2>配列と分岐</h2>
+  <div v-for="user in users" :key="user.id">
+    <div v-show="!user.admin">{{ user.name }} is not admin.     </div>
+  </div>
+</template>
+```
+
+### クリック・イベント
+
+ボタンをクリックしてclickBTN()関数を呼ぶ。
+
+```html
+<script setup>
+  const clickBTN = () => {
+    console.log('click BTN!')
+  };
+</script>
+<template>
+  <h2>クリックをVueに渡す</h2>
+  <button @click="clickBTN">クリック！</button>
+</template>
+```
+
+ダブルクリックが効かない。
+
+```html
+<script setup>
+  const dbClickBTN = () => {
+    console.log('duble click BTN!')
+  };
+</script>
+<template>
+  <h2>クリックをVueに渡す</h2>
+  <button @dbclick="dbClickBTN">
+    ダブルクリックが効かない！
+  </button>
+</template>
+```
+  
+マウスのenter, leave つまりマウスをかざす動作を渡す。
+2つの動作をひとつにまとめたい。
+
+```html
+<script setup>
+  const mouseEnter = () => {
+    console.log('mouse over!')
+  };
+</script>
+<template>
+  <h2>マウスをかざす</h2>
+  <button @mouseenter="mouseEnter">マウスをかざす</button>
+</template>
+```
+
+```html
+<script setup>
+  const mouseLeave = () => {
+    console.log('mouse leave!')
+  };
+</script>
+<template>
+  <h2>マウスが通過する</h2>
+  <button @mouseleave="mouseLeave">マウスが通過する</button>
+</template>
+```
+
+クリックしたタイミングで引数を渡すことができる。
+複数のイベントの発火をハンドリングできる。
+
+```html
+<script setup>
+  const clickBtnArg = (arg) => {
+    console.log(arg)
+  }
+  const clickBtnArgAnother = (arg) => {
+    console.log(arg)
+  };
+</script>
+<template>
+  <h2>引数を渡して同時発火</h2>
+  <button @click="clickBtnArg('hello'), clickBtnArgAnother('こんにちは')">2つのイベントを起動させる</button>
+</template>
+```
+
+eventオブジェクト『$event』を渡してbutton要素をハンドリング
+
+```html
+<script setup>
+  const clickOnEvent = (e) => {
+    console.log(e.target)
+    e.target.style.backgroundColor = 'red'
+  }
+</script>
+
+<template>
+  <h2>eventオブジェクト</h2>
+  <!-- $eventを渡すとHTMLをやり取りすことになる。
+        背景色を変える。toggleしたい!! -->
+  <button @click="clickOnEvent($event)">イベントを渡す</button>
+</template>
+```
+
+event修飾子
+イベント名の後に`.修飾子`をつけることで機能を追加することができる。
+
+ページのリロード（最初は何のことかわからなかったやつ）
+例えば`form`要素の`submit`が実行されるとページのリロードが行われる。
+submit のデフォルトの動作をキャンセルして意図した挙動に変更する。
+
+```html
+<script setup>
+  const send = () => {
+    console.log('send')
+  };
+</script>
+
+<template>
+  <h2>event修飾子</h2>
+  <form action="" @submit="send">
+    <button>送信ボタンを押す=>コンソールにsendが残らない</button>
+  </form>
+</template>
+```
+
+ページのリロードを防ぐためには`event`オブジェクトを利用して
+`event.preventDefault`を実行する必要がある。
+
+```html
+<script setup>
+  const pdSend = (e) => {
+    e.preventDefault()
+    console.log('send')
+  };
+</script>
+
+<template>
+  <h2>preventDefaultを使う</h2>
+  <form action="" @submit="pdSend($event)">
+    <button>preventDefaultを適用した送信</button>
+  </form>
+</template>
+```
+
+イベント修飾子を利用することで`event`オブジェクトを利用することなく
+簡単に設定を行うことができる。
+`@submit`から`@submit.prevent`に変更。
+
+```html
+<script setup>
+  const pdSendModifier = () => {
+    console.log('pdSendModifier')
+  };
+</script>
+
+<template>
+  <form action="" @submit.prevent="pdSendModifier">
+    <button>イベント修飾子を使う</button>
+  </form>
+
 </template>
 ```
