@@ -1,8 +1,9 @@
-@use "forwards" as fw
+@use "../forwards" as fw
 
 .app
   display: flex
   flex-direction: column
+  margin: 0 auto
   align-items: center
   padding-top: 50px
   text-transform: capitalize
@@ -24,7 +25,8 @@ input
   padding: 5px
   border-radius: 5px
 button
-  margin-bottom: 10px
+  display: block
+  margin: 10px auto
   padding: 5px 10px
   color: #fff
   background-color: blue

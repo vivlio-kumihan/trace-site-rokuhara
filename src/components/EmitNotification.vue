@@ -35,16 +35,13 @@ JavaScript、Vue に限らずイベントが発生した場合そのイベント
 handleEvent 関数の処理を記述してHTML（この場合は、コンソール）へ出力するという流れ。
 -->
 <!-- 
-<script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
-  }
-</script>
+<script setup></script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" />
+  <div>
+    <h2>子コンポーネント</h2>
+    <button @click="$emit('notification')">通知</button>
+  </div>
 </template>
 -->
 
@@ -53,16 +50,11 @@ handleEvent 関数の処理を記述してHTML（この場合は、コンソー�
 div 要素を外し『ルート要素が複数』になった場合は警告が出る。
 -->
 <!-- 
-<script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
-  }
-</script>
+<script setup></script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" />
+  <h2>子コンポーネント</h2>
+  <button @click="$emit('notification')">通知</button>
 </template>
 -->
 
@@ -74,38 +66,32 @@ defineEmits 関数でイベントを定義して解消する。
 -->
 <!-- 
 <script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
-  }
+defineEmits(['notification'])
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" />
+  <h2>子コンポーネント</h2>
+  <button @click="$emit('notification')">通知</button>
 </template>
 -->
 
 <!-- 
-  defineEmits 関数には戻り値を保存することができる。
-  戻り値を emit に保存した場合は emit 関数として利用可能。
-  その場合は $emit を利用せず emit('notification')を利用することができる。
-  ただし、script タグで定義した emit と同じ名前に設定する必要がある。
+戻り値の利用  
+defineEmits 関数には戻り値を保存することができる。
+戻り値を emit に保存した場合は emit 関数として利用可能。
+その場合は $emit を利用せず emit('notification')を利用することができる。
+ただし、script タグで定義した emit と同じ名前に設定する必要がある。
 -->
 <!-- 
 <script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
-  }
+  const emit = defineEmits(['notification']);
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" />
+  <h2>子コンポーネント</h2>
+  <button @click="emit('notification')">通知</button>
 </template>
 -->
-
 <!-- 
 ### defineEmits を利用して複数のイベント対応
 Hello コンポーネントから notification イベントを発生する際に
@@ -118,18 +104,19 @@ defineEmits 関数の引数では配列でイベント名の設定を行う。
 -->
 
 <script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
+  const emit = defineEmits(['notification', 'click'])
+  const sendNotification = () => {
+    emit('notification')
   }
-  const clickEvent = () => {
-    console.log('クリックしたら通知')
-  }
+  const sendClick = () => {
+    emit('click')
+  };
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" v-on:click="clickEvent" />
+  <h2>子コンポーネント</h2>
+  <button @click="sendNotification">通知</button>
+  <button @click="sendClick">クリック</button>
 </template>
 
 

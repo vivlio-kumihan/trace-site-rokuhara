@@ -23,9 +23,16 @@ textarea {
   font-family: "Jost", sans-serif;
 }
 
+header {
+  width: 100%;
+  height: 10vh;
+  background-color: #333;
+}
+
 .app {
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   align-items: center;
   padding-top: 50px;
   text-transform: capitalize;
@@ -57,10 +64,17 @@ input {
 }
 
 button {
-  margin-bottom: 10px;
+  display: block;
+  margin: 10px auto;
   padding: 5px 10px;
   color: #fff;
   background-color: blue;
   border: unset;
   border-radius: 5px;
+}
+
+#app footer {
+  width: 100%;
+  height: 2vh;
+  background-color: #333;
 }/*# sourceMappingURL=style.css.map */
