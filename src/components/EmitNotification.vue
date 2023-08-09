@@ -128,6 +128,67 @@ emit によって発生したイベントの通知を利用して、
 - props を使って EmitNotification コンポーネントに name を渡す。
 - 子コンポーネント EmitNotification でこの後に定義を行う changeNameEvent イベントを検知して handleEvent 関数を実行し name の値を"Linda"にする。 
 -->
+<!-- 
+  <script setup>
+    const props = defineProps({
+      name: String
+    })
+  
+    const emit = defineEmits(['changeNameEvent'])
+  
+    // Hello コンポーネントではボタンをクリックすると changeName 関数を実行し、
+    // changeName 関数の中では changeNameEvent イベントを発生させる。
+    const changeName = () => {
+      emit('changeNameEvent')
+    };
+  </script>
+-->
+
+<!-- 
+  "Change Name"ボタンをクリックすると changeNameEvent が発生して
+  親コンポーネントで changeNameEvent イベントを検知して handleEvent 関数を実行し、
+  reactive な変数である name の値を"John"から"Ken"に更新する。 
+-->
+
+<!-- 
+<template>
+  <h2>子コンポーネント</h2>
+  <p>Hello {{ props.name }}</p>
+  <button @click="changeName">Change Name</button>
+</template> 
+-->
+
+<!-- 【emit でデータを渡す】 -->
+<!-- 
+  emit を利用することでイベントを発生させることができました。emit はイベント発生によって親コンポーネントに通知するだけではなくてデータを渡すこともできます。emit の第一引数にはイベント名を設定していましたが emit の第二引数に親コンポーネントに渡したいデータを設定することができます。
+  emit を実行する子コンポーネンでは changeNameEvent と一緒に"Kevin"という渡したいデータを設定しています。
+-->
+
+<!-- その1 -->
+<!-- 
+<script setup>
+  const props = defineProps({
+    name: String
+  })
+
+  const emit = defineEmits(['changeNameEvent'])
+
+  const changeName = () => {
+    // emit('changeNameEvent')
+    // 　　　　　　▼
+    // emit を実行する子コンポーネンでは changeNameEvent と一緒に
+    // 渡したいデータを設定できる。
+    emit('changeNameEvent', 'nobuyuki')
+  };
+</script>
+
+<template>
+  <h2>子コンポーネント</h2>
+  <p>Hello {{ props.name }}</p>
+  <button @click="changeName">Change Name</button>
+</template>  -->
+
+<!-- その2 -->
 
 <script setup>
   const props = defineProps({
@@ -136,22 +197,20 @@ emit によって発生したイベントの通知を利用して、
 
   const emit = defineEmits(['changeNameEvent'])
 
-  // Hello コンポーネントではボタンをクリックすると changeName 関数を実行し、
-  // changeName 関数の中では changeNameEvent イベントを発生させる。
   const changeName = () => {
-    emit('changeNameEvent')
+    // 複数の値を渡したい場合にはオブジェクトを利用する。
+    // emit('changeNameEvent', 'nobuyuki')
+    // 　　　　　　▼
+    emit('changeNameEvent', {firstName: 'nobuyuki', lastName: 'Takahiro'})
   };
 </script>
 
-<!-- 
-  "Change Name"ボタンをクリックすると changeNameEvent が発生して
-  親コンポーネントで changeNameEvent イベントを検知して handleEvent 関数を実行し、
-  reactive な変数である name の値を"John"から"Ken"に更新する。 
--->
 <template>
   <h2>子コンポーネント</h2>
   <p>Hello {{ props.name }}</p>
   <button @click="changeName">Change Name</button>
-  
-</template>
+</template> 
+
+
+
 <style></style>

@@ -136,7 +136,7 @@ defineEmits 関数の引数では配列でイベント名の設定を行う。
 <!-- 【emit イベントを利用した更新】 -->
 <!-- emit によって発生したイベントの通知を利用して親コンポーネントで定義した reactive な変数の更新方法を確認します。
 App.vue ファイルの中で ref 関数を利用して reactive な変数 name を定義します。props を使って Hello コンポーネントに name を渡します。子コンポーネント Hello でこの後に定義を行う changeNameEvent イベントを検知して handleEvent 関数を実行し name の値を"Ken"に更新します。 -->
-
+<!-- 
 <script setup>
   import { ref } from 'vue'
   import EmitNotification from './components/EmitNotification.vue'
@@ -145,7 +145,8 @@ App.vue ファイルの中で ref 関数を利用して reactive な変数 name 
   const handleEvent = () => {
     name.value = 'linda'
   };
-</script>
+</script> 
+-->
 
 <!-- 
   emit を利用することで子コンポーネントで行われたユーザのアクションを元に
@@ -153,9 +154,66 @@ App.vue ファイルの中で ref 関数を利用して reactive な変数 name 
   子コンポーネントはイベントで通知を行うだけで実際に更新を行うのは
   更新が許されている通知を受け取った親コンポーネントです。 
 -->
+<!-- 
 <template>
   <h1>Vue 3 入門</h1>
   <EmitNotification @changeNameEvent="handleEvent" :name="name"/>
 </template>
+-->
+
+<!-- 【emit でデータを渡す】 -->
+<!-- 
+emit を利用することでイベントを発生させることができました。emit はイベント発生によって親コンポーネントに通知するだけではなくてデータを渡すこともできます。emit の第一引数にはイベント名を設定していましたが emit の第二引数に親コンポーネントに渡したいデータを設定することができます。
+emit を実行する子コンポーネンでは changeNameEvent と一緒に"Kevin"という渡したいデータを設定しています。
+-->
+<!-- その1 -->
+<!--  
+<script setup>
+  import { ref } from 'vue'
+  import EmitNotification from './components/EmitNotification.vue'
+
+  const name = ref('John')
+
+  // const handleEvent = () => {
+  //   name.value = 'Yoko'
+  // };
+  // 　　　　　　▼
+  // emit を実行する子コンポーネンでは changeNameEvent と一緒に
+  // 渡したいデータを設定した。
+  // イベントを受け取る親コンポーネントでは関数の引数(newName)から 
+  // emit で設定したデータを取得することができる。
+  const handleEvent = (newName) => {
+    name.value = newName
+  };
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>  
+  <EmitNotification @changeNameEvent="handleEvent" :name="name" />
+</template>
+-->
+
+<!-- その2 -->
+
+<script setup>
+  import { ref } from 'vue'
+  import EmitNotification from './components/EmitNotification.vue'
+
+  const name = ref('John')
+  // 親コンポーネントの App ではデータはオブジェクトとして渡されるので
+  // 以下のように設定する。
+  // const handleEvent = (newName) => {
+  //   name.value = newName
+  // 　　　　　　▼
+  const handleEvent = (newName) => {
+    name.value = `${ newName.firstName } ${newName.firstName}`
+  };
+</script>
+
+<template>
+  <h1>Vue 3 入門</h1>  
+  <EmitNotification @changeNameEvent="handleEvent" :name="name" />
+</template>
+
 
 <style></style>
