@@ -305,9 +305,79 @@ const users = [
 </template>
 ```
 
+#### まとめてみた
+
+```html
+<script setup>
+  const flag = true
+  const users = [
+    { id: 1, name: '髙廣信之', email: 'nob@email.com', admin: true },
+    { id: 2, name: '髙廣和恵', email: 'kaz@email.com', admin: false },
+    { id: 3, name: '髙廣茉李', email: 'mari@email.com', admin: false }
+  ];
+</script>
+<!-- 
+  # v-forは判別してる
+    - 対象が配列かオブジェクトかは自動で見分けている。 
+    - 引数には以下のような順番で設定する。
+    配列:         値  > インデックス
+    オブジェクト:  値 > キー > インデックス
+
+  # v-forは値についても判別している
+    - 対象がオブジェクトであれば、そのメソッドを充てて値を取り出せる。
+
+  # 変数のスコープ
+    - v-if, v-forで回している中がスコープ範囲。
+    - 変数はイミュータブル。
+  # 条件文を使った表示の切り替えは必須。
+-->
+<template>
+  <ul>
+    <template v-for="(user, idx) in users" :key="user">
+      <li>index -> {{ idx }}</li>
+      <li>id -> {{ user.id }}</li>
+      <li>name -> {{ user.name }}</li>
+      <li>email -> {{ user.email }}</li>
+      <li>adimin -> {{ user.admin }}</li>
+      <li>
+        <ul class="inner">
+          <template v-for="(value, key, idx) in user" :key="key">
+            <li>{{ idx }}: {{ key }} => {{ value }}</li>
+          </template>
+        </ul>
+      </li>
+    </template>
+  </ul>
+  <ul class="judge">
+    <template v-for="user in users" :key="user">
+      <template v-if="user.admin !== true">
+        <template v-for="(value, key, idx) in user" :key="key">
+          <li>{{ idx }}: {{ key }} => {{ value }}</li>
+        </template>
+      </template>
+    </template>
+  </ul>
+</template>
+
+<style>
+  .inner li { color: blue; }
+  .judge li { color: green; }
+</style>
+```
+
 ### クリック・イベント
 
-ボタンをクリックしてclickBTN()関数を呼ぶ。
+ディレクティブのクリックイベントを『発火させたい』要素に対してつける。
+
+- v-on:click
+- ＠click（v-on:clickのショートハンド）
+
+`<要素 @click="独自の名称"></要素>`
+
+クリック、インプットなりのイベントを`"独自の名称"`でディレクティブに渡して初期化して、script要素へ渡して操作する。
+
+例としては、『ボタン』要素にクリックを担当するディレクティブに固有の名称を渡して初期化。
+script要素で設定した同名の名称の関数を呼ぶ。つまり『クリックしたことを伝えて関数を発火させる』。
 
 ```html
 <script setup>
@@ -315,24 +385,21 @@ const users = [
     console.log('click BTN!')
   };
 </script>
+
 <template>
   <h2>クリックをVueに渡す</h2>
   <button @click="clickBTN">クリック！</button>
 </template>
 ```
 
-ダブルクリックが効かない。
+ダブルクリック
+- ＠dblclick
 
 ```html
-<script setup>
-  const dbClickBTN = () => {
-    console.log('duble click BTN!')
-  };
-</script>
 <template>
   <h2>クリックをVueに渡す</h2>
-  <button @dbclick="dbClickBTN">
-    ダブルクリックが効かない！
+  <button @dblclick="dbClickBTN">
+    ダブルクリック！
   </button>
 </template>
 ```
@@ -364,7 +431,7 @@ const users = [
 </template>
 ```
 
-クリックしたタイミングで引数を渡すことができる。
+クリックしたタイミングで『引数』を渡すことができる。
 複数のイベントの発火をハンドリングできる。
 
 ```html
@@ -382,7 +449,8 @@ const users = [
 </template>
 ```
 
-eventオブジェクト『$event』を渡してbutton要素をハンドリング
+eventオブジェクト『$event』を渡してbutton要素をハンドリングできる。
+__テキストの内容を変えたり、クラスを変えたり色々したいがやり方がわからない。__
 
 ```html
 <script setup>
@@ -394,8 +462,6 @@ eventオブジェクト『$event』を渡してbutton要素をハンドリング
 
 <template>
   <h2>eventオブジェクト</h2>
-  <!-- $eventを渡すとHTMLをやり取りすことになる。
-        背景色を変える。toggleしたい!! -->
   <button @click="clickOnEvent($event)">イベントを渡す</button>
 </template>
 ```
@@ -429,7 +495,7 @@ submit のデフォルトの動作をキャンセルして意図した挙動に�
 <script setup>
   const pdSend = (e) => {
     e.preventDefault()
-    console.log('send')
+    console.log('preventDefaultを適用した送信')
   };
 </script>
 
@@ -456,6 +522,5 @@ submit のデフォルトの動作をキャンセルして意図した挙動に�
   <form action="" @submit.prevent="pdSendModifier">
     <button>イベント修飾子を使う</button>
   </form>
-
 </template>
 ```
