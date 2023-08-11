@@ -189,7 +189,7 @@ emit によって発生したイベントの通知を利用して、
 </template>  -->
 
 <!-- その2 -->
-
+<!-- 
 <script setup>
   const props = defineProps({
     name: String
@@ -210,7 +210,37 @@ emit によって発生したイベントの通知を利用して、
   <p>Hello {{ props.name }}</p>
   <button @click="changeName">Change Name</button>
 </template> 
+-->
 
+<!-- その3 -->
+<!-- 
+固定値ではなく`input`要素に入力したデータが渡せるようにする。
 
+  - `ref`関数で`reactive`な変数`name`を定義して`input`要素に`v-model`ディレクティブで`name`を設定する。
+  - `input`要素に入力を行うと文字入力/削除毎に反映させれるように`input`イベントを利用する。
+  - `name`変数の初期値には`props`から渡される`props.name`を設定する。
+  - 親コンポーネント`App`ではイベントを検知しイベントと一緒に渡されるデータを受け取るという処理は同じなので変更はない。
+  - ブラウザで確認すると`input`要素には`props`で渡された`name`の初期値"John"が設定されている。
+
+文字を変更する度にイベントが発生して親コンポーネントがイベントを検知して更新処理を行い、更新した値が`props`を経由して子コンポーネントに渡され画面に反映される。
+-->
+
+<script setup>
+  import { ref } from 'vue'
+  const props = defineProps({
+    name: String
+  })
+  const name = ref(props.name)
+  const emit = defineEmits(['changeNameEvent'])
+  const changeName = () => {
+    emit('changeNameEvent', name.value)
+  };
+</script>
+
+<template>
+  <h2>子コンポーネント</h2>
+  <p>Hello {{ props.name }}</p>
+  <input type="text" v-model="name" @input="changeName" />
+</template> 
 
 <style></style>
