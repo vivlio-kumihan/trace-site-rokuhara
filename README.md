@@ -1,21 +1,36 @@
 # Vue3 入門
 
 ## 属性を操作する
-<!-- 
-v-bindでstyle属性にアクセス。オブジェクトの値に変数を格納。
-script要素で値を代入されたものがHTML上で展開する。
- -->
+
+`v-bind`を使って`style`属性にアクセスしてみる。
+`v-bind, for, if etc`ディレクティブにオブジェクトを渡す形式。
+
+style属性に値を渡してみる。
+
+```html
+<template>
+  <p :style="{ padding: '0 10px', color: '#fff', backgroundColor: '#333' }">hello</p>
+</template>
+```
+値に『__変数でもあり関数あるもの__』を格納。
+このオブジェクトが、`script`要素で値を代入されたりしながらHTML上の要素へ展開される。
+
 ```html
 <script setup>
 // 変数を生成させるときには十分に注意する。
-let colorRed = 'red'
-let fontWeight = '900'
+let colorSelect = 'red'
+const flag = false
+if (flag) {
+  const changeColor = () => {
+    colorSelect = 'orange'
+  }
+  changeColor()
+}
 </script>
 
 <template>
   <h1>Vue 3 入門</h1>
-  <p v-bind:style="{ color: colorRed, fonrWeight: fontWeight }">hello</p>
-  <p :style="{ color: colorRed, fonrWeight: fontWeight }">hello</p>
+  <p :style="{ color: colorSelect }">hello</p>
 </template>
 
 <style scoped>
@@ -177,7 +192,12 @@ const flag = false
 
 ## 配列・オブジェクト
 
+vueは、対象としているものが配列かオブジェクトを判断している。
+`v-for`で対象を回す場合、`value > array`, `value > key > index`の書き方に留意してコード書くこと。
+
 ### 配列の値を出力する
+
+配列を設定してインデックスで呼び出してみる。
 
 ```html
 <script setup>
@@ -208,6 +228,8 @@ const flag = false
 
 #### まずは、オブジェクトの値を出力してみる
 
+index, key, valueを出力する。
+
 ```html
 <script setup>
 const objectItem = {
@@ -218,31 +240,20 @@ const objectItem = {
 };  
 </script>
 
-<template v-for="obj in objectItem" :key="vale">
-  <p>{{ obj }}</p>
+<template>
+  <ul>
+    <template v-for="(value, key, idx) in object" :key="value">
+      <li>{{ idx }}</li>
+      <li>{{ key }}</li>
+      <li>{{ value }}</li>
+    </template>
+  </ul>
 </template>
-```
-
-#### オブジェクトのキーと値を明示して出力する
-
-dl > template
-template > dl この違いが大きい。
-templateで包含するとスタイルが効かなくなる。
-
-```html
-<dl>
-  <template v-for="(value, key) in objectItem" :key="value">
-    <div>
-      <dt>{{ key }}</dt>
-      <dd>{{ value }}</dd>
-    </div>
-  </template>
-</dl>
 ```
 
 #### 複数のオブジェクトから値を出力する
 
-__その1 インスタンスのメソッドを充てる方法__
+__その1 オブジェクトのインスタンスへメソッドを充てる方法__
 
 ```html
 <script setup>
@@ -286,26 +297,9 @@ __その2 v-forで回す方法__
 先ほどのコードでは、
 `<template v-if="key !== 'id'">`
 を使って条件分岐させた。
+要素を`template`以外に変更、
+`<div v-if="key !== 'id'">`
 通常の要素を使い、システムへの負担を少なくして、admin情報の真偽値で振り分ける。 
-
-```html
-<script setup>
-const users = [
-  {id: 1, name: '髙廣信之', email: 'nob@email.com', admin: true},
-  {id: 2, name: '髙廣和恵', email: 'kaz@email.com', admin: false},
-  {id: 3, name: '髙廣茉李', email: 'mari@email.com', admin: false}
-];
-</script>
-
-<template>
-  <h2>配列と分岐</h2>
-  <div v-for="user in users" :key="user.id">
-    <div v-show="!user.admin">{{ user.name }} is not admin.     </div>
-  </div>
-</template>
-```
-
-#### まとめてみた
 
 ```html
 <script setup>
@@ -350,11 +344,13 @@ const users = [
   </ul>
   <ul class="judge">
     <template v-for="user in users" :key="user">
-      <template v-if="user.admin !== true">
+      <!-- ↓ template要素ではだめ。意味があるから。 -->
+      <div v-show="user.admin !== true">
+      <!-- ↑ この考え方記憶する -->
         <template v-for="(value, key, idx) in user" :key="key">
           <li>{{ idx }}: {{ key }} => {{ value }}</li>
         </template>
-      </template>
+      </div>
     </template>
   </ul>
 </template>
@@ -450,13 +446,16 @@ script要素で設定した同名の名称の関数を呼ぶ。つまり『ク�
 ```
 
 eventオブジェクト『$event』を渡してbutton要素をハンドリングできる。
-__テキストの内容を変えたり、クラスを変えたり色々したいがやり方がわからない。__
+__テキストの内容を変えたり、クラスを変えたり、要素を追加したり。__
 
 ```html
 <script setup>
   const clickOnEvent = (e) => {
     console.log(e.target)
     e.target.style.backgroundColor = 'red'
+    e.target.textContent = 'hello'
+    e.target.className = 'active'
+    e.target.insertAdjacentHTML('afterbegin', '<span></span>')
   }
 </script>
 
@@ -509,6 +508,7 @@ submit のデフォルトの動作をキャンセルして意図した挙動に�
 
 イベント修飾子を利用することで`event`オブジェクトを利用することなく
 簡単に設定を行うことができる。
+ディレクティブに直接メソッドを送って解決する感じ。
 `@submit`から`@submit.prevent`に変更。
 
 ```html
@@ -523,4 +523,149 @@ submit のデフォルトの動作をキャンセルして意図した挙動に�
     <button>イベント修飾子を使う</button>
   </form>
 </template>
+```
+
+## Reactivity
+
+### Zero
+
+- 変数`count`を0で初期化。
+- `v-on`ディレクティブの`click`イベントに`count`関数を敷設。
+- 表現にマスタッシュで`count`を敷設。
+
+クリックしても何も起こらない。
+
+count 数が増えないのは定義した count 変数が『Reactivity（反応性）』を持っていないため。
+
+```html
+<script setup>
+  const count = 0;
+</script>
+
+<template>
+  <h2>Reactivity Zero</h2>
+  <button @click="count++">Count is {{ count }}</button>
+</template>
+```
+
+### One-1
+
+#### ref()関数の設定
+
+- `ref()`関数を`import`
+- `ref()`関数に『0』の引数を代入して変数`count`を初期化する。
+  - これによって、変数`count`はReactivity（反応性）を帯びたと宣言される。
+- `ref()`関数では引数には`Boolean`, `String`, `オブジェクト`を取る。
+
+変数`count`は`Rective`化完了。ボタンをクリックするとHTMLは表現に反応するようになる。
+
+```html
+<script setup>
+  import { ref } from 'vue'
+  const count = ref(0);
+</script>
+<template>
+  <h2>Reactivity One</h2>
+  <button @click="count++">Count is {{ count }}</button>
+</template>
+```
+
+### One-2
+
+#### ref()関数のラッパー
+
+`ref()`関数で初期化することで変数`count`は、オブジェクトでラップされることになる。
+値を参照するには`.value`メソッドを送信する。
+
+```html
+<script setup>
+  import { ref } from 'vue'
+  const count = ref('object')
+  console.log(count.value);
+</script>
+<template></template>
+```
+
+### Two
+
+`ref()`関数で初期化された変数を関数に仕込んで使う。
+状況の変化に対応する関数にするため。
+
+```html
+<script setup>
+  import { ref } from 'vue'
+  const count = ref(0)
+  const addCount = () => {
+    count.value++
+  };
+</script>
+<template>
+  <h2>Reactivity Two</h2>
+  <button @click="addCount">Count is {{ count }}</button>
+</template>
+```
+
+### Three-1
+
+Reactivity（反応性）を帯びた変数を定義する。
+- カウントアップの動作部はtmplate内で実行する。
+- `reactive`関数の引数はオブジェクト。
+- ref関数では`script`要素内で関数を定義してカウントアップさせていたが、`reactive`関数は、template要素内でディレクティブのイベントにメソッドを充てて同じ動作をする。
+
+```html
+<script setup>
+  import { reactive } from 'vue'
+  const state = reactive({
+    count: 0
+  });
+</script>
+
+<template>
+  <h2>Reactivity Three-1</h2>
+  <!-- 『state』変数に『count』メソッドを送信して値を得る。 -->
+  <button @click="state.count++">Count is {{ state.count }}</button>
+</template>
+```
+
+### Three-2-1
+
+`ref()`関数と同じように`script`内で実行させる。
+`ref()`関数で作成した`reactive`な変数のように`value`プロパティを利用する必要はない。
+
+<script setup>
+  // reactive()関数で生成したインスタンスに関数を定義する
+  import { reactive } from 'vue'
+  const state = reactive({
+    count: 0
+  })
+  const addCount = () => {
+    state.count++
+  };
+</script>
+
+<template>
+  <h2>Reactivity Three-2</h2>
+  <button @click="addCount">Reactive Count is {{ state.count }}</button>
+</template>
+-->
+
+### Three-2-2
+
+ref()関数とreactive()関数の違いは、ref()関数では、script要素内で関数を定義する際、インスタンスに対して`.value`メソッドが必要ということ。
+
+```html
+<script setup>
+  import { ref } from 'vue';
+  const state = ref({
+    count: 0
+  });
+  const addCount = () => {
+    state.value.count++;
+  };
+</script>
+
+<template>
+  <h2>Reactivity Four</h2>
+  <button @click="addCount">Ref Count is {{ state.count }}</button>
+</template> 
 ```
