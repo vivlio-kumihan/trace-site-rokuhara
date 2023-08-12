@@ -1,16 +1,34 @@
+@use "../forwards" as fw
+
 .app
   display: flex
   flex-direction: column
+  margin: 0 auto
   align-items: center
   padding-top: 50px
-
-h1
+  text-transform: capitalize
+h1, h2
   font-size: 2rem
   font-weight: 900
   line-height: 1
-  margin-bottom: 30px
+  margin-bottom: 10px
+h2
+  font-size: 1.5rem
+  margin: 30px 0px 20px
 p
   font-size: 1.1rem
   font-weight: 500
   line-height: 1.7
   letter-spacing: .1em
+input
+  margin: 30px
+  padding: 5px
+  border-radius: 5px
+button
+  display: block
+  margin: 10px auto
+  padding: 5px 10px
+  color: #fff
+  background-color: blue
+  border: unset
+  border-radius: 5px

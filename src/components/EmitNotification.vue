@@ -35,16 +35,13 @@ JavaScript、Vue に限らずイベントが発生した場合そのイベント
 handleEvent 関数の処理を記述してHTML（この場合は、コンソール）へ出力するという流れ。
 -->
 <!-- 
-<script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
-  }
-</script>
+<script setup></script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" />
+  <div>
+    <h2>子コンポーネント</h2>
+    <button @click="$emit('notification')">通知</button>
+  </div>
 </template>
 -->
 
@@ -53,16 +50,11 @@ handleEvent 関数の処理を記述してHTML（この場合は、コンソー�
 div 要素を外し『ルート要素が複数』になった場合は警告が出る。
 -->
 <!-- 
-<script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
-  }
-</script>
+<script setup></script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" />
+  <h2>子コンポーネント</h2>
+  <button @click="$emit('notification')">通知</button>
 </template>
 -->
 
@@ -74,38 +66,32 @@ defineEmits 関数でイベントを定義して解消する。
 -->
 <!-- 
 <script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
-  }
+defineEmits(['notification'])
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" />
+  <h2>子コンポーネント</h2>
+  <button @click="$emit('notification')">通知</button>
 </template>
 -->
 
 <!-- 
-  defineEmits 関数には戻り値を保存することができる。
-  戻り値を emit に保存した場合は emit 関数として利用可能。
-  その場合は $emit を利用せず emit('notification')を利用することができる。
-  ただし、script タグで定義した emit と同じ名前に設定する必要がある。
+戻り値の利用  
+defineEmits 関数には戻り値を保存することができる。
+戻り値を emit に保存した場合は emit 関数として利用可能。
+その場合は $emit を利用せず emit('notification')を利用することができる。
+ただし、script タグで定義した emit と同じ名前に設定する必要がある。
 -->
 <!-- 
 <script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
-  }
+  const emit = defineEmits(['notification']);
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" />
+  <h2>子コンポーネント</h2>
+  <button @click="emit('notification')">通知</button>
 </template>
 -->
-
 <!-- 
 ### defineEmits を利用して複数のイベント対応
 Hello コンポーネントから notification イベントを発生する際に
@@ -118,102 +104,112 @@ defineEmits 関数の引数では配列でイベント名の設定を行う。
 -->
 <!-- 
 <script setup>
-  import EmitNTF from './components/EmitNotification.vue'
-  const handleEvent = () => {
-    console.log('子コンポーネントからの通知')
+  const emit = defineEmits(['notification', 'click'])
+  const sendNotification = () => {
+    emit('notification')
   }
-  const clickEvent = () => {
-    console.log('クリックしたら通知')
-  }
+  const sendClick = () => {
+    emit('click')
+  };
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNTF v-on:notification="handleEvent" v-on:click="clickEvent" />
+  <h2>子コンポーネント</h2>
+  <button @click="sendNotification">通知</button>
+  <button @click="sendClick">クリック</button>
 </template> 
 -->
 
 <!-- 【emit イベントを利用した更新】 -->
-<!-- emit によって発生したイベントの通知を利用して親コンポーネントで定義した reactive な変数の更新方法を確認します。
-App.vue ファイルの中で ref 関数を利用して reactive な変数 name を定義します。props を使って Hello コンポーネントに name を渡します。子コンポーネント Hello でこの後に定義を行う changeNameEvent イベントを検知して handleEvent 関数を実行し name の値を"Ken"に更新します。 -->
 <!-- 
-<script setup>
-  import { ref } from 'vue'
-  import EmitNotification from './components/EmitNotification.vue'
-
-  const name = ref('paul')
-  const handleEvent = () => {
-    name.value = 'linda'
-  };
-</script> 
+emit によって発生したイベントの通知を利用して、
+親コンポーネントで定義した reactive な変数の更新方法を確認する。
+- App.vue ファイルの中で ref 関数を利用して reactive な変数 name を定義する。
+- props を使って EmitNotification コンポーネントに name を渡す。
+- 子コンポーネント EmitNotification でこの後に定義を行う changeNameEvent イベントを検知して handleEvent 関数を実行し name の値を"Linda"にする。 
+-->
+<!-- 
+  <script setup>
+    const props = defineProps({
+      name: String
+    })
+  
+    const emit = defineEmits(['changeNameEvent'])
+  
+    // Hello コンポーネントではボタンをクリックすると changeName 関数を実行し、
+    // changeName 関数の中では changeNameEvent イベントを発生させる。
+    const changeName = () => {
+      emit('changeNameEvent')
+    };
+  </script>
 -->
 
 <!-- 
-  emit を利用することで子コンポーネントで行われたユーザのアクションを元に
-  親コンポーネントの reactive の変数を更新する方法を理解することができました。
-  子コンポーネントはイベントで通知を行うだけで実際に更新を行うのは
-  更新が許されている通知を受け取った親コンポーネントです。 
+  "Change Name"ボタンをクリックすると changeNameEvent が発生して
+  親コンポーネントで changeNameEvent イベントを検知して handleEvent 関数を実行し、
+  reactive な変数である name の値を"John"から"Ken"に更新する。 
 -->
+
 <!-- 
 <template>
-  <h1>Vue 3 入門</h1>
-  <EmitNotification @changeNameEvent="handleEvent" :name="name"/>
-</template>
+  <h2>子コンポーネント</h2>
+  <p>Hello {{ props.name }}</p>
+  <button @click="changeName">Change Name</button>
+</template> 
 -->
 
 <!-- 【emit でデータを渡す】 -->
 <!-- 
-emit を利用することでイベントを発生させることができました。emit はイベント発生によって親コンポーネントに通知するだけではなくてデータを渡すこともできます。emit の第一引数にはイベント名を設定していましたが emit の第二引数に親コンポーネントに渡したいデータを設定することができます。
-emit を実行する子コンポーネンでは changeNameEvent と一緒に"Kevin"という渡したいデータを設定しています。
+  emit を利用することでイベントを発生させることができました。emit はイベント発生によって親コンポーネントに通知するだけではなくてデータを渡すこともできます。emit の第一引数にはイベント名を設定していましたが emit の第二引数に親コンポーネントに渡したいデータを設定することができます。
+  emit を実行する子コンポーネンでは changeNameEvent と一緒に"Kevin"という渡したいデータを設定しています。
 -->
+
 <!-- その1 -->
-<!--  
+<!-- 
 <script setup>
-  import { ref } from 'vue'
-  import EmitNotification from './components/EmitNotification.vue'
+  const props = defineProps({
+    name: String
+  })
 
-  const name = ref('John')
+  const emit = defineEmits(['changeNameEvent'])
 
-  // const handleEvent = () => {
-  //   name.value = 'Yoko'
-  // };
-  // 　　　　　　▼
-  // emit を実行する子コンポーネンでは changeNameEvent と一緒に
-  // 渡したいデータを設定した。
-  // イベントを受け取る親コンポーネントでは関数の引数(newName)から 
-  // emit で設定したデータを取得することができる。
-  const handleEvent = (newName) => {
-    name.value = newName
+  const changeName = () => {
+    // emit('changeNameEvent')
+    // 　　　　　　▼
+    // emit を実行する子コンポーネンでは changeNameEvent と一緒に
+    // 渡したいデータを設定できる。
+    emit('changeNameEvent', 'nobuyuki')
   };
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>  
-  <EmitNotification @changeNameEvent="handleEvent" :name="name" />
-</template>
--->
+  <h2>子コンポーネント</h2>
+  <p>Hello {{ props.name }}</p>
+  <button @click="changeName">Change Name</button>
+</template>  -->
 
 <!-- その2 -->
 <!-- 
 <script setup>
-  import { ref } from 'vue'
-  import EmitNotification from './components/EmitNotification.vue'
+  const props = defineProps({
+    name: String
+  })
 
-  const name = ref('John')
-  // 親コンポーネントの App ではデータはオブジェクトとして渡されるので
-  // 以下のように設定する。
-  // const handleEvent = (newName) => {
-  //   name.value = newName
-  // 　　　　　　▼
-  const handleEvent = (newName) => {
-    name.value = `${ newName.firstName } ${newName.firstName}`
+  const emit = defineEmits(['changeNameEvent'])
+
+  const changeName = () => {
+    // 複数の値を渡したい場合にはオブジェクトを利用する。
+    // emit('changeNameEvent', 'nobuyuki')
+    // 　　　　　　▼
+    emit('changeNameEvent', {firstName: 'nobuyuki', lastName: 'Takahiro'})
   };
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>  
-  <EmitNotification @changeNameEvent="handleEvent" :name="name" />
-</template>
+  <h2>子コンポーネント</h2>
+  <p>Hello {{ props.name }}</p>
+  <button @click="changeName">Change Name</button>
+</template> 
 -->
 
 <!-- その3 -->
@@ -228,29 +224,23 @@ emit を実行する子コンポーネンでは changeNameEvent と一緒に"Kev
 
 文字を変更する度にイベントが発生して親コンポーネントがイベントを検知して更新処理を行い、更新した値が`props`を経由して子コンポーネントに渡され画面に反映される。
 -->
-<!-- 
+
 <script setup>
   import { ref } from 'vue'
-  import EmitNotification from './components/EmitNotification.vue'
-
-  const name = ref('John')
-  const handleEvent = (newName) => {
-    name.value = newName
+  const props = defineProps({
+    name: String
+  })
+  const name = ref(props.name)
+  const emit = defineEmits(['changeNameEvent'])
+  const changeName = () => {
+    emit('changeNameEvent', name.value)
   };
 </script>
 
 <template>
-  <h1>Vue 3 入門</h1>  
-  <EmitNotification @changeNameEvent="handleEvent" :name="name" />
-</template>
--->
-
-<script setup>
-  
-</script>
-
-<template>
-  
-</template>
+  <h2>子コンポーネント</h2>
+  <p>Hello {{ props.name }}</p>
+  <input type="text" v-model="name" @input="changeName" />
+</template> 
 
 <style></style>
