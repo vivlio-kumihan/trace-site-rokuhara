@@ -632,6 +632,7 @@ Reactivity（反応性）を帯びた変数を定義する。
 `ref()`関数と同じように`script`内で実行させる。
 `ref()`関数で作成した`reactive`な変数のように`value`プロパティを利用する必要はない。
 
+```html
 <script setup>
   // reactive()関数で生成したインスタンスに関数を定義する
   import { reactive } from 'vue'
@@ -647,7 +648,7 @@ Reactivity（反応性）を帯びた変数を定義する。
   <h2>Reactivity Three-2</h2>
   <button @click="addCount">Reactive Count is {{ state.count }}</button>
 </template>
--->
+```
 
 ### Three-2-2
 
@@ -668,4 +669,166 @@ ref()関数とreactive()関数の違いは、ref()関数では、script要素内
   <h2>Reactivity Four</h2>
   <button @click="addCount">Ref Count is {{ state.count }}</button>
 </template> 
+```
+
+
+# コンポーネント編
+
+## 最初のコンポーネント
+
+- `component`ディレクトリに`Hello.veu`ファイルを格納。
+- `template`要素内に埋め込み
+- `App.vue`が親コンポーネント、`Hello.vue`が子コンポーネント
+
+__App.vue__
+
+```html
+<script setup>
+  import Hello from './components/Hello.vue'
+</script>
+<template>
+  <h1>Vue3を学ぶ</h1>
+  <Hello />
+  <Hello />
+  <Hello />
+</template>
+```
+
+__Hello.vue__
+
+```html
+<template>
+  <h2>初めてのコンポーネント</h2>
+</template>
+```
+
+## ref()関数、reactive()関数の利用
+
+コンポーネントの中では`script`要素の中で`reactivity`を持つ変数を定義するために `ref()`, `reactive()`関数を利用する。
+
+コンポーネントの呼び出しと埋め込み。
+
+__App.vue__
+
+```html
+<script setup>
+  import RefReactive from './components/RefReactive.vue'
+</script>
+<template>
+  <h1>Vue3を学ぶ</h1>
+  <RefReactive />
+</template>
+```
+
+__RefReactive.vue__
+
+`ref()`関数、`reactive()`関数の利用。それぞれの関数が引数に取れる値の性格を理解する。出力の仕方が変わるから。
+
+```html
+<script setup>
+  import { ref, reactive } from 'vue'
+  const count = ref(0)
+  const state = reactive({
+    count: 1
+  })
+</script>
+
+<template>
+  <h2>初めてのコンポーネント</h2>
+  <p>Ref Count: {{ count }}</p>
+  <p>Reactive Count: {{ state.count }}</p>
+</template>
+```
+
+## Reactiveな変数を表示してみる
+
+ボタンを追加してそれぞれの`count`の数をボタンのクリックで増やせるように設定する。
+また、コンポーネントは自由に差し込んでいけることとそれぞれの関数が別々に稼働することも確認数する。
+
+コンポーネントの呼び出しと埋め込みをする。
+
+__App.vue__
+
+```html
+<script setup>
+  import ValueRefReactive from './components/ValueRefReactive.vue'
+  import Hello from './components/Hello.vue'
+</script>
+<template>
+  <h1>Vue3を学ぶ</h1>
+  <Hello />
+  <!-- 何度でも呼べる -->
+  <ValueRefReactive />
+  <ValueRefReactive />
+</template>
+```
+
+ref()関数、reactive()関数両方の出力の仕方を学ぶ。
+
+__ValueRefReactive.vue__
+
+```html
+<script setup>
+  import { ref, reactive } from 'vue'
+  const count = ref(0)
+  const state = reactive({
+    count: 1
+  })
+  const addRefCount = () => {
+    count.value++
+  }
+  const addReactiveCount = () => {
+    state.count++
+  };
+</script>
+
+<template>
+  <h2>初めてのコンポーネント</h2>
+  <p>Ref Count: {{ count }}</p>
+  <p>Reactive Count: {{ state.count }}</p>
+  <div>
+    <button @click="addRefCount">Ref Count+</button>
+    <button @click="addReactiveCount">Reactive Count+</button>
+  </div>
+</template>
+```
+
+## Props データを渡す方法
+
+コンポーネントへデータ渡する場合、コンポーネント要素に適当な名称で属性と値を設定しておく。
+コンポーネント側で`defineProps()`関数を使い、初期化した変数にメソッドを送るという道筋。
+コンポーネント要素で設定した属性値をよしなにコンポーネントで処理してHTMLに出力する方法を学ぶ。
+
+__App.vue__
+
+```html
+<script setup>
+  import PropsComp from './components/PropsComp.vue'
+</script>
+<template>
+  <h1>Vue3を学ぶ</h1>
+  <PropsComp message="Propsの使い方"/>
+  <PropsComp message="difineProps関数を利用"/>
+</template>
+```
+
+__PropsComp.vue__
+
+```html
+<!-- 型を設定してやる方法 -->
+<script setup>
+  const props = defineProps({
+    message: String
+  });
+</script>
+
+<!-- 配列を設定してやる方法 -->
+<script setup>
+  const props = defineProps(['message']);
+</script>
+
+<template>
+  <h2>初めてのコンポーネント</h2>
+  <p>{{ props.message }}</p>
+</template>
 ```
