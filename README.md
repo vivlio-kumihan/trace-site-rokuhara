@@ -6,6 +6,10 @@
 `v-bind, for, if etc`ディレクティブにオブジェクトを渡す形式。
 
 style属性に値を渡してみる。
+- ディレクティブに`文字列`を渡す。
+- `文字列`の中身は`オブジェクト`。
+- `style`ディレクティブへ渡す属性名は`キャメルケース`。
+- `style`ディレクティブへ渡す値は`文字列`で渡す。
 
 ```html
 <template>
@@ -370,7 +374,7 @@ __その2 v-forで回す方法__
 
 `<要素 @click="独自の名称"></要素>`
 
-クリック、インプットなりのイベントを`"独自の名称"`でディレクティブに渡して初期化して、script要素へ渡して操作する。
+クリック、インプットなりのイベントを`"独自の名称"`を付けてディレクティブを初期化して、script要素へ渡して何らかの操作と紐付けをする。script要素で何んらかの処理を定義しておかないとコンソールで盛大なエラー表示い見舞われるので注意。
 
 例としては、『ボタン』要素にクリックを担当するディレクティブに固有の名称を渡して初期化。
 script要素で設定した同名の名称の関数を呼ぶ。つまり『クリックしたことを伝えて関数を発火させる』。
@@ -447,6 +451,8 @@ script要素で設定した同名の名称の関数を呼ぶ。つまり『ク�
 
 eventオブジェクト『$event』を渡してbutton要素をハンドリングできる。
 __テキストの内容を変えたり、クラスを変えたり、要素を追加したり。__
+
+ただし、以下はform要素に対してクラスを付与したり、要素の値を変更したりする命令を出すとHTML構造を破壊するので注意が必要。
 
 ```html
 <script setup>
@@ -529,13 +535,14 @@ submit のデフォルトの動作をキャンセルして意図した挙動に�
 
 ### Zero
 
-- 変数`count`を0で初期化。
+- 変数`count`を0で初期化。ここがミソ。さっきまでは無名関数を代入してたぞ。
 - `v-on`ディレクティブの`click`イベントに`count`関数を敷設。
+  - 変数`count`にインクルメント演算子`++`で、変数`count`をカウントアップする。
 - 表現にマスタッシュで`count`を敷設。
 
 クリックしても何も起こらない。
 
-count 数が増えないのは定義した count 変数が『Reactivity（反応性）』を持っていないため。
+定義した`count`変数が『Reactivity（反応性）』を持っていないため。
 
 ```html
 <script setup>
@@ -550,7 +557,9 @@ count 数が増えないのは定義した count 変数が『Reactivity（反応
 
 ### One-1
 
-#### ref()関数の設定
+Reactivity（反応性）を帯びた変数を定義 その1
+
+#### `reactive`関数
 
 - `ref()`関数を`import`
 - `ref()`関数に『0』の引数を代入して変数`count`を初期化する。
@@ -576,6 +585,9 @@ count 数が増えないのは定義した count 変数が『Reactivity（反応
 
 `ref()`関数で初期化することで変数`count`は、オブジェクトでラップされることになる。
 値を参照するには`.value`メソッドを送信する。
+何がミソか？
+先ほどまでは、template要素で引数にインクルメント演算子を充てて変数に動きを付けていたが、より複雑な動きが必要な場合に要素内に書いていられない。
+script要素に関数を仕込んで使う時に、値を参照する必要があり、`.value`メソッド充てないと値が出てこないとなるのを未然に防ぐ意味で解説している模様。
 
 ```html
 <script setup>
@@ -607,10 +619,13 @@ count 数が増えないのは定義した count 変数が『Reactivity（反応
 
 ### Three-1
 
-Reactivity（反応性）を帯びた変数を定義する。
+Reactivity（反応性）を帯びた変数を定義 その2
+
+#### `reactive`関数
+
 - カウントアップの動作部はtmplate内で実行する。
 - `reactive`関数の引数はオブジェクト。
-- ref関数では`script`要素内で関数を定義してカウントアップさせていたが、`reactive`関数は、template要素内でディレクティブのイベントにメソッドを充てて同じ動作をする。
+- `ref`関数の時の手順と同じで、template要素内でディレクティブのイベントにメソッドを充てて同じ動作をする。
 
 ```html
 <script setup>
@@ -629,7 +644,7 @@ Reactivity（反応性）を帯びた変数を定義する。
 
 ### Three-2-1
 
-`ref()`関数と同じように`script`内で実行させる。
+では、`script`内で実行させる。
 `ref()`関数で作成した`reactive`な変数のように`value`プロパティを利用する必要はない。
 
 ```html
@@ -652,6 +667,9 @@ Reactivity（反応性）を帯びた変数を定義する。
 
 ### Three-2-2
 
+この言い回しはおかしい。
+そもそも`ref(0)`として初期化し、値を参照するには`count.value`とやってたはず。
+使い途は引数をどうするかで振り分けたらいいだけの話。
 ref()関数とreactive()関数の違いは、ref()関数では、script要素内で関数を定義する際、インスタンスに対して`.value`メソッドが必要ということ。
 
 ```html
@@ -670,6 +688,77 @@ ref()関数とreactive()関数の違いは、ref()関数では、script要素内
   <button @click="addCount">Ref Count is {{ state.count }}</button>
 </template> 
 ```
+
+## v-modelディレクティブ　入力フォーム
+
+### ReactiveではないFormの状態
+
+```html
+<script setup>
+  const message = 'hello world'
+  const clickButton = () => {
+    console.log(message)
+  };
+</script>
+
+<template>
+  <h1>Form</h1>  
+  <p>{{ message }}</p>
+  <input type="text" v-model="message">
+  <div><button @click="clickButton">{{ message }}</button></div>
+</template>
+```
+
+### ref()関数で改良してみる
+
+`input`要素に`v-model`ディレクティブを利用することで、`input`要素で入力した値と`reactive`な変数を同期させることができる。
+
+```html
+<script setup>
+  import { ref } from 'vue'
+  const message = ref('hello world')
+  const clickButton = () => {
+    console.log(message.value)
+  };
+</script>
+
+<template>
+  <h1>Form</h1>  
+  <p>{{ message }}</p>
+  <!-- 入力に全ての値が追従する。ボタンをクリックしてコンソールへ発信。-->
+  <!--
+    -->
+    <input type="text" v-model="message" /> 
+  <!--
+    <input :value="message" @input="message = $event.target.value" />
+  -->
+  <div><button @click="clickButton">{{ message }}</button></div>
+</template>
+```
+
+### reactive()関数で改変してみる
+
+```html
+<script setup>
+  import { reactive } from "vue"
+  const state = reactive({
+    message: 'hello world'
+  })
+  const clickBtn = () => {
+    console.log(state.message)
+  };
+</script>
+
+<template>
+  <p>{{ state.message }}</p>
+  <input type="text" v-model="state.message" />
+  <button @click="clickBtn">{{ state.message }}</button>
+</template>
+```
+
+
+
+
 
 
 # コンポーネント編

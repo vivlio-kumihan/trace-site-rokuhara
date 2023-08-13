@@ -246,11 +246,29 @@ emit を実行する子コンポーネンでは changeNameEvent と一緒に"Kev
 -->
 
 <script setup>
-  
+  import { reactive } from 'vue';
+  const state = reactive({
+    count: 0
+  })
+  // const addCount = () => {
+  //   state.count++
+  // };
 </script>
 
 <template>
-  
+  <button @click="state.count++">クリックした回数は、{{ state.count }}</button>
 </template>
 
-<style></style>
+<!-- <script setup>
+  import { ref } from 'vue'
+  const countClick = ref(0)
+  const addCount = () => {
+    countClick.value++
+  };
+</script>
+<template>
+  <button @click="addCount">クリックした回数は、{{ countClick }}</button>  
+</template> -->
+
+<style scoped>
+</style>
