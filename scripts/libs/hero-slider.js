@@ -11,7 +11,7 @@ class HeroSlider {
       // autoplay: {
       //   delay: 2000,
       // },
-      speed: 1000,
+      speed: 1500,
       slidesPerView: 1,
       breakpoints: {
           1024: {
@@ -24,9 +24,10 @@ class HeroSlider {
 
   // 引数にオブジェクトを代入することで
   // パラメータの書き換えができるように改造
+  // 表示時間を調整する。
   autoStart(options = {}) {
     options = Object.assign({
-      delay: 4000
+      delay: 8000
     }, options);
     this.swiper.params.autoplay = options;
     // start()関数は組み込み。

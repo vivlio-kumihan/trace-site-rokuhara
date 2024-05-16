@@ -3,7 +3,11 @@
 
 #container {
   position: relative;
-  background-color: $cWhite;
+  @include bg(
+    $image: "../images/bg-pattern.jpg",
+    $size: auto,
+    $repeat: repeat
+  );
   transition: .5s;
   z-index: 50;
 }
@@ -258,6 +262,101 @@
   }
 }
 
+
+.to-content {
+  @extend .content-width;
+  @extend .mb-lg;
+  @include mq(md) {
+    width: 100%;
+  }
+  &__inner {
+    @extend .flex;
+    justify-content: center;
+    gap: 0;
+  }
+  &__item {
+    position: relative;
+    aspect-ratio: 3/1.5;
+    display: flex;
+    @include mq(md) {
+      flex-basis: 47%;
+      aspect-ratio: 3/2;
+      justify-content: center;
+      align-items: center;
+    }
+    @include mq(lg) {
+      flex-basis: 33.3%;
+      aspect-ratio: 4/3;
+    }
+
+    &.how {
+      @include bg($image: "../images/to-content-01.jpg");
+    }
+    &.insight {
+      @include bg($image: "../images/to-content-02.jpg");
+    }
+    &.round {
+      @include bg($image: "../images/to-content-03.jpg");
+    }
+    &.rival {
+      @include bg($image: "../images/to-content-05.jpg");
+    }
+    &.hope {
+      @include bg($image: "../images/to-content-08.jpg");
+    }
+    &.gather {
+      @include bg($image: "../images/to-content-06.jpg");
+    }
+    &::before {
+      @include positionAlt(tl);
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: rgba($color: $cBlack, $alpha: .5);
+    }
+  }
+  &__cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 2;
+    color: $cWhite;
+    background-color: rgba($color: $cTheme, $alpha: .5);
+    border: 1px solid $cWhite;
+    transform: scaleX(.95) scaleY(.9);
+    transition: .5s;
+    @include mq(md) {
+      transform: scale(.9);
+    }
+    @include mq(lg) {
+      transform: scaleX(.93) scaleY(.9);
+
+    }
+    &:hover {
+      border: 1px solid transparent;
+      transform: scale(1);
+    }
+  }
+
+  &__catch {
+    font-size: 1.3em
+  }
+
+  &__anchor {
+    display: block;
+    transition: .5s;
+    &:hover {
+      color: rgba($color: $cWhite, $alpha: .6);
+      transform: scale(1.08);
+      line-height: 2
+      
+    }
+  }
+}
+
 .popular {
   // セクション全体の左右にマージンを設けたい。
   // 背景のアミは左右いっぱいまでにしたレイアウトを
@@ -429,10 +528,10 @@
     width: 60%;
     margin: 0 auto;
     @include mq(md){
-      width: 55%;
+      width: 40%;
     }
     @include mq(lg) {
-      width: 30%;
+      width: 25%;
     }
 
     &__org-name {
