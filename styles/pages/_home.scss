@@ -416,6 +416,7 @@
   color: $cWhite;
   background-color: $cTheme;
   text-align: center;
+  
   & .wrapper {
     @extend .content-width;
     padding: 60px 0;
@@ -423,6 +424,7 @@
       margin-top: 20px;
     }
   }
+
   & .logo {
     width: 60%;
     margin: 0 auto;
@@ -432,11 +434,13 @@
     @include mq(lg) {
       width: 30%;
     }
+
     &__org-name {
       width: 100%;
       height: 100%;
     }
   }
+
   &__nav {
     & > ul {
       display: flex;
@@ -448,33 +452,24 @@
       }
     }
   }
+
   &__address {
     line-height: 1.7;
   }
+
   &__icon {
     display: inline-block;
     width: 25px;
     height: 20px;
+
     &.twitter {
-      @include bg(
-        $color: unset,
-        $size: contain,
-        $image: "../images/twitter-white.svg",
-      )
+      @include bg($color: unset, $size: contain, $image: "../images/twitter-white.svg")
     }
     &.instagram {
-      @include bg(
-        $color: unset,
-        $size: contain,
-        $image: "../images/instagram-white.svg",
-      )
+      @include bg($color: unset, $size: contain, $image: "../images/instagram-white.svg")
     }
     &.youtube {
-      @include bg(
-        $color: unset,
-        $size: contain,
-        $image: "../images/youtube-white.svg",
-      )
+      @include bg($color: unset, $size: contain, $image: "../images/youtube-white.svg")
     }
   }
 }

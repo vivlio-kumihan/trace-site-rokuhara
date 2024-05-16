@@ -53,8 +53,11 @@
 
   &__title {
     @include positionAlt(50%, 50%, -50%, calc(-50% + 50px));
-    font-size: 25px;
-    color: #fff;
+    font-size: 40px;
+    font-family: "Yuji Boku";
+    color: rgba($color: $cWhite, $alpha: .8);
+    text-shadow: 0 5px 10px $cTheme;
+
     opacity: 0;
     transition: opacity 6s ease, transform 1s ease;
     z-index: 2;

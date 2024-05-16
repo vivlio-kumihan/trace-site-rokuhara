@@ -257,10 +257,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, calc(-50% + 50px));
-  font-size: 40px;
+  font-size: 100px;
   font-family: "Yuji Boku";
-  color: rgba(255, 255, 255, 0.8);
-  text-shadow: 0 5px 10px #0B1013;
+  color: blue;
   opacity: 0;
   transition: opacity 6s ease, transform 1s ease;
   z-index: 2;
@@ -1099,11 +1098,19 @@ body {
   display: inline-block;
   width: 25px;
   height: 20px;
+  background-color: unset;
+  background-image: url("");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-clip: border-box;
+  color: inherit;
 }
 .footer__icon.twitter {
-  background-color: unset;
+  background-color: #fff;
   background-image: url("../images/twitter-white.svg");
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -1111,9 +1118,9 @@ body {
   color: inherit;
 }
 .footer__icon.instagram {
-  background-color: unset;
+  background-color: #fff;
   background-image: url("../images/instagram-white.svg");
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -1121,9 +1128,9 @@ body {
   color: inherit;
 }
 .footer__icon.youtube {
-  background-color: unset;
+  background-color: #fff;
   background-image: url("../images/youtube-white.svg");
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
