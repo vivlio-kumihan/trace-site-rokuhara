@@ -685,11 +685,11 @@ body {
   }
 }
 
-.font-lr, .houses__title {
+.font-lg, .houses__title {
   font-size: 17px;
 }
 @media (min-width: 960px) {
-  .font-lr, .houses__title {
+  .font-lg, .houses__title {
     font-size: 23px;
   }
 }

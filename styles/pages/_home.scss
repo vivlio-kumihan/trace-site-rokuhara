@@ -26,7 +26,7 @@
 // 内容がほぼ同じであれば、
 // ハンバーガー・メニューのない構造が簡単なfooterから先に作り
 // それをheaderに汎用するという方針。
-// その際、同じものをコピーして持ってくることに何の違和感も持つ必要は全くない。
+// その際、同じものをコピーして持ってくることに違和感も持つ必要は全くない。
 .header {
   position: fixed;
   top: 0;
@@ -97,6 +97,53 @@
     }
   }
 }
+
+.sns {
+  width: 90%;
+  margin: 0 auto;
+  @extend .mb-lg;
+  & > ul {
+    @extend .flex;
+    width: 100%;
+    @include mq(md) {
+      justify-content: center;
+      column-gap: 20px;
+      row-gap: 10px;
+    }
+  }
+  &__channel {
+    font-size: .875rem;
+    margin: 0 auto;
+    & + &    {
+      margin-top: 10px;
+      @include mq(md) {
+        margin-top: 0px;
+      }
+    }
+    @include mq(md) {
+      margin: 0;
+    }
+
+  }
+  &__anchor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    padding: 1em 0;
+    letter-spacing: .1em;
+    background-color: $cWhite;
+    border: 1px solid $cGray-lt;
+    border-radius: 25px;
+    & > span {
+      display: inline-block;
+      width: 22px;
+      height: 17px;
+      margin-right: .3em
+    }
+  }
+}
+
 
 .travel {
   @extend .content-width;
@@ -251,7 +298,7 @@
   }
   &__title {
     @extend .mb-sm;
-    @extend .font-lr;
+    @extend .font-lg;
   }
   &__btn {
     text-align: center;
@@ -329,11 +376,7 @@
     transform: scaleX(.95) scaleY(.9);
     transition: .5s;
     @include mq(md) {
-      transform: scale(.9);
-    }
-    @include mq(lg) {
       transform: scaleX(.93) scaleY(.9);
-
     }
     &:hover {
       border: 1px solid transparent;
@@ -512,9 +555,10 @@
 
 
 .footer {
-  color: $cWhite;
-  background-color: $cTheme;
+  font-size: 0.725rem;
   text-align: center;
+  color: $cWhite;
+  background-color: rgba($color: $cTheme, $alpha: .85);
   
   & .wrapper {
     @extend .content-width;
@@ -525,13 +569,13 @@
   }
 
   & .logo {
-    width: 60%;
+    width: 200px;
     margin: 0 auto;
     @include mq(md){
-      width: 40%;
+      width: 225px;
     }
     @include mq(lg) {
-      width: 25%;
+      width: 250px;
     }
 
     &__org-name {
@@ -560,15 +604,6 @@
     display: inline-block;
     width: 25px;
     height: 20px;
-
-    &.twitter {
-      @include bg($color: unset, $size: contain, $image: "../images/twitter-white.svg")
-    }
-    &.instagram {
-      @include bg($color: unset, $size: contain, $image: "../images/instagram-white.svg")
-    }
-    &.youtube {
-      @include bg($color: unset, $size: contain, $image: "../images/youtube-white.svg")
-    }
   }
 }
+

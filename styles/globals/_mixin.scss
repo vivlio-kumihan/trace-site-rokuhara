@@ -1,26 +1,3 @@
-@mixin p-base(
-  $which: before,
-  $top: 0,
-  $left: 0,
-  $content: "",
-  $position: absolute,
-  $width: 100%,
-  $height: 100%,
-  $display: block
-) {
-  &::#{$which} {
-    display: $display;
-    content: $content;
-    position: $position;
-    top: $top;
-    left: $left;
-    width: $width;
-    height: $height;
-    @content;
-  }
-}
-
-
 // メディア・クエリ
 //    設定のコツは、style.sacssを参照すること。
 //    sm => md => lg => xlの順になるようスタイリングをレイアウトすることが秘訣です。
@@ -116,7 +93,7 @@ $breakpoints: (
 // 背景
 @mixin bg( 
   // 背景色
-  $color: #fff,
+  $color: transparent,
   // 配置するイメージまでのパス。
   $image: '',
   // イメージの配置位置（詳細のパラメータは下記）。
@@ -130,7 +107,8 @@ $breakpoints: (
   $attachment: scroll,
   // 背景の描画領域を定める。テキスト・カラー属性への値の付与は必須。
   $clip: border-box,
-  $txt-color: inherit) {
+  $txt-color: inherit,
+  ) {
   background: {
     color: $color;
     image: url('#{$image}');
@@ -141,6 +119,7 @@ $breakpoints: (
     clip: $clip;
   }
   color: $txt-color;
+  @content;
 }
 
 // // background-position params
@@ -217,5 +196,27 @@ $breakpoints: (
     top: $top;
     left: $left;
     transform: translate($x, $y);
+  }
+}
+
+
+@mixin p-base($which: before,
+  $display: block,
+  $position: absolute,
+  $top: 0,
+  $left: 0,
+  $width: 100%,
+  $height: 100%,
+  $content: "",
+) {
+  &::#{$which} {
+    display: $display;
+    position: $position;
+    top: $top;
+    left: $left;
+    width: $width;
+    height: $height;
+    content: $content;
+    @content;
   }
 }

@@ -12,6 +12,18 @@ body {
   font-family: "Noto Serif JP", serif;
 }
 
+h2 {
+  @extend .mb-md;
+  padding-bottom: 1em;
+  text-align: center;
+  @extend .font-lg;
+  letter-spacing: .25em;
+  border-bottom: 1px solid $cGray-lt;
+
+}
+.header-under-line {
+
+}
 
 .noto-serif-jp {
   font-family: "Noto Serif JP", serif;
@@ -53,11 +65,14 @@ body {
   margin-bottom: 16px !important;
 }
 
-.mb-lg {
-  margin-bottom: 80px !important;
+.mb-md {
+  margin-bottom: 32px !important;
+}
 
+.mb-lg {
+  margin-bottom: 64px !important;
   @include mq(lg) {
-    margin-bottom: 150px !important;
+    margin-bottom: 120px !important;
   }
 }
 
@@ -93,6 +108,12 @@ body {
 }
 
 // font
+.font-ft {
+  font-size: 12px;
+  @include mq(lg) {
+    font-size: 14px;
+  }
+}
 .font-sm {
   font-size: 14px;
   @include mq(lg) {
@@ -100,19 +121,19 @@ body {
   }
 }
 .font-md {
-  font-size: 17px;
-  @include mq(lg) {
-    font-size: 19px;
-  }
-}
-.font-lr {
-  font-size: 17px;
+  font-size: 20px;
   @include mq(lg) {
     font-size: 23px;
   }
 }
 .font-lg {
-  font-size: 25px;
+  font-size: 24px;
+  @include mq(lg) {
+    font-size: 27px;
+  }
+}
+.font-ex {
+  font-size: 28px;
   @include mq(lg) {
     font-size: 36px;
   }
@@ -135,4 +156,25 @@ body {
   @include mq(lg) {
     display: none !important;
   }
+}
+
+.twitter {
+  @include bg($size: contain, $image: "../images/twitter-white.svg")
+}
+.twitter__blk {
+  @include bg($size: contain, $image: "../images/twitter-blk.svg")
+}
+
+.instagram {
+  @include bg($size: contain, $image: "../images/instagram-white.svg")
+}
+.instagram__blk {
+  @include bg($size: contain, $image: "../images/instagram-blk.svg")
+}
+
+.youtube {
+  @include bg($size: contain, $image: "../images/youtube-white.svg")
+}
+.youtube__blk {
+  @include bg($size: contain, $image: "../images/youtube-blk.svg")
 }
