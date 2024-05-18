@@ -231,6 +231,65 @@
 //   }
 // }
 
+// @include mq(md) {
+//   width: 70%;
+// }
+// @include mq(lg) {
+//   width: 45%;
+// }
+// @include mq(xl) {
+//   width: 30%;
+// }
+.openning {
+  @extend .mb-lg;
+  &__inner {
+    @extend .content-width;
+    @extend .flex;
+    justify-content: space-between
+  }
+  &__whats-new {
+    @extend .mb-md;
+    flex-basis: 35%;
+    & ul {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  &__news {
+    &:not(:first-of-type) {
+      margin-top: .75em;
+    }
+    & .date {
+      margin-bottom: .25em;
+      font-weight: 900;
+      color: $cThemeSub;
+    }
+    & .title {
+      line-height: 1.5;
+    }
+  }
+  &__btn {
+    display: block;
+    margin-top: 20px;
+    border: 1px solid $cGray-md;
+    border-radius: 30px;
+  }
+  &__movie {
+    position: relative;
+    aspect-ratio: 4/3;
+    flex-basis: 60%;
+  }
+  &__youtube {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
 .houses {
   @extend .content-width;
   @extend .mb-lg;
@@ -372,15 +431,14 @@
 }
 
 
-
-
 .to-content {
-  @extend .content-width;
   @extend .mb-lg;
-  @include mq(md) {
-    width: 100%;
-  }
+  overflow: hidden;
   &__inner {
+    @extend .content-width;
+    @include mq(md) {
+      width: 100%;
+    }
     @extend .flex;
     justify-content: center;
     gap: 0;

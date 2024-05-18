@@ -67,7 +67,7 @@ class Main {
       new ScrollObserver('.travel__texts', this._travelTextsCB, { once: true }),
       new ScrollObserver('.cover-slide', this._slideImageCB, { once: true }),
       new ScrollObserver('.appear', this._appearAnimeCB, { once: true }),
-      new ScrollObserver('.animate-title', this._textAnimeCB.bind(this), { once: false }),     
+      new ScrollObserver('.animate-title', this._textAnimeCB.bind(this), { once: true }),     
       new ScrollObserver('#main-content', this._asideAnimeCB.bind(this), { once: false, rootMargin: "-300px 0px" }),     
     )
   }
@@ -79,6 +79,7 @@ class Main {
       this.heroSlider.autoStart();
     } else {
       this.heroSlider.autoStop();
+      console.log("stop");
     }    
   }
   
@@ -139,7 +140,6 @@ class Main {
 new Main;
 
 const colorTrigger = document.querySelectorAll(".sns__anchor");
-console.log(colorTrigger);
 colorTrigger.forEach(anchor => {
   anchor.addEventListener("mouseover", () => {
     anchor.firstElementChild.classList.remove("black-icon");
