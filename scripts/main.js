@@ -138,6 +138,21 @@ class Main {
 
 new Main;
 
+const colorTrigger = document.querySelectorAll(".sns__anchor");
+console.log(colorTrigger);
+colorTrigger.forEach(anchor => {
+  anchor.addEventListener("mouseover", () => {
+    anchor.firstElementChild.classList.remove("black-icon");
+  });
+  anchor.addEventListener("mouseleave", () => {
+    setTimeout(() => {
+      anchor.firstElementChild.classList.add("black-icon");
+    }, 215);
+  });
+});
+
+
+
 // ///////////////////////////////////////////////////////////
 //
 // これで散らかっているコードというらしい。

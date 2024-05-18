@@ -40,10 +40,10 @@ h2 {
 .cormorant-garamond {
   font-family: "Cormorant Garamond", serif;
   font-style: normal;
-  &__R {
+  &.reg {
     font-weight: 400;
   }
-  &__B {
+  &.bld {
     font-weight: 700;
   }
 }
@@ -159,22 +159,22 @@ h2 {
 }
 
 .twitter {
-  @include bg($size: contain, $image: "../images/twitter-white.svg")
-}
-.twitter__blk {
-  @include bg($size: contain, $image: "../images/twitter-blk.svg")
+  @include bg($size: contain, $image: "../images/twitter-white.svg");
+  &.black-icon {
+    @include bg($size: contain, $image: "../images/twitter-blk.svg");
+  }
 }
 
 .instagram {
-  @include bg($size: contain, $image: "../images/instagram-white.svg")
-}
-.instagram__blk {
-  @include bg($size: contain, $image: "../images/instagram-blk.svg")
+  @include bg($size: contain, $image: "../images/instagram-white.svg");
+  &.black-icon {
+    @include bg($size: contain, $image: "../images/instagram-blk.svg");
+  }
 }
 
 .youtube {
-  @include bg($size: contain, $image: "../images/youtube-white.svg")
-}
-.youtube__blk {
-  @include bg($size: contain, $image: "../images/youtube-blk.svg")
+  @include bg($size: contain, $image: "../images/youtube-white.svg");
+  &.black-icon {
+    @include bg($size: contain, $image: "../images/youtube-blk.svg");
+  }
 }
