@@ -657,7 +657,7 @@ h2 {
   }
 }
 
-.content-width, .openning__inner, .houses, .information__inner, .to-content__inner, .footer .wrapper {
+.content-width, .header__inner, .openning__inner, .houses, .information__inner, .to-content__inner, .footer .wrapper {
   width: 90%;
   margin: 0 auto;
   max-width: 1070px;
@@ -826,11 +826,69 @@ h2 {
   z-index: -1;
 }
 
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 100;
+}
+.header.triggered {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 25px -10px #130d0b;
+}
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.header .logo {
+  width: 200px;
+  height: 50px;
+  font-size: 35px;
+}
+.header .logo__org-name {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.header__nav {
+  display: none;
+}
+@media (min-width: 960px) {
+  .header__nav {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.header__main-nav {
+  display: flex;
+}
+.header__main-link > a {
+  display: inline-block;
+  padding: 10px;
+}
+.header__sub-nav {
+  display: flex;
+}
+.header__sub-link {
+  visibility: hidden;
+  opacity: 0;
+}
+
 .openning__inner {
   justify-content: space-between;
 }
 .openning__whats-new {
   flex-basis: 35%;
+}
+@media (min-width: 960px) {
+  .openning__whats-new {
+    flex-basis: 45%;
+  }
 }
 .openning__whats-new ul {
   display: flex;
@@ -858,6 +916,11 @@ h2 {
   position: relative;
   aspect-ratio: 4/3;
   flex-basis: 60%;
+}
+@media (min-width: 960px) {
+  .openning__movie {
+    flex-basis: 55%;
+  }
 }
 .openning__youtube {
   position: absolute;

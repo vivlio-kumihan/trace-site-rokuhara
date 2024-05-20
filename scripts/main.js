@@ -79,16 +79,16 @@ class Main {
       this.heroSlider.autoStart();
     } else {
       this.heroSlider.autoStop();
-      console.log("stop");
     }    
   }
   
+  // 内容が上に上がるとheaderの背景を白く着色する
   _headerBgWhiteCB(el, isIntersecting) {
-    if (isIntersecting) {
-      this.header.classList.remove('triggered');
-    } else {
-      this.header.classList.add('triggered');
-    }
+    // if (isIntersecting) {
+    //   this.header.classList.remove('triggered');
+    // } else {
+    //   this.header.classList.add('triggered');
+    // }
   };  
 
   // Travel Texts

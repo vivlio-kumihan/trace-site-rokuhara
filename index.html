@@ -35,32 +35,63 @@
 <body>
   <div id="global-container">
     <div id="container">
-      <!-- <div class="mobile-menu__cover"></div>
+      <div class="mobile-menu__cover"></div>
       <div class="nav-trigger"></div>
+
       <div class="header">
         <div class="header-bg"></div>
-        <div class="header__inner appear up">
-          <div class="logo item">
-            <img class="logo__img" src="./images/logo.svg" alt="">
-            <span class="logo__stay">Stay</span>
-            <span class="logo__world">World</span>
+        <div class="header__inner">
+          <div class="logo">
+            <img src="./images/logo-org-name.svg" alt="" class="logo__org-name" />
           </div>
-
           <nav class="header__nav">
-            <ul>
-              <li class="header__list item"><a href="#">Service</a></li>
-              <li class="header__list item"><a href="#">Company</a></li>
-              <li class="header__list item"><a class="btn filled" href="#">Contact</a></li>
+            <ul class="header__main-nav">
+              <li class="header__main-link"><a href="#">HOME</a></li>
+              <li class="header__main-link"><a href="#">お知らせ</a></li>
+              <li class="header__main-link"><a href="#">拝観案内</a></li>
+              <li class="header__main-link"><a href="#">SNS</a></li>
+              <!-- <li class="header__main-link"><a href="#"><a class="btn filled" href="#">お問合せ</a></li> -->
             </ul>
+            <dl class="header__sub-nav">
+              <div class="header__sub-title">
+                <dt>知る</dt>
+                <dd class="header__sub-link"><a href="#">六波羅蜜寺の歴史</a></dd>
+                <dd class="header__sub-link"><a href="#">六波羅蜜とは</a></dd>
+              </div>
+              <div class="header__sub-title">
+                <dt>観る</dt>
+                <dd class="header__sub-link"><a href="#">六波羅蜜寺の寺宝</a></dd>
+                <dd class="header__sub-link"><a href="#">源平の史蹟</a></dd>
+              </div class="header__sub-title">
+              <div>
+                <dt>巡る</dt>
+                <dd class="header__sub-link"><a href="#">西国十七番札所</a></dd>
+                <dd class="header__sub-link"><a href="#">都七福神の一・巳成金弁財天</a></dd>
+              </div>
+              <div class="header__sub-title">
+                <dt>叶う</dt>
+                <dd class="header__sub-link"><a href="#">開運推命おみくじ</a></dd>
+              </div>
+              <div class="header__sub-title">
+                <dt>願う</dt>
+                <dd class="header__sub-link"><a href="#">福を呼ぶ銭洗い弁天</a></dd>
+                <dd class="header__sub-link"><a href="#">巳の日の特別ご朱印</a></dd>
+                <dd class="header__sub-link"><a href="#">御祈願お申込み</a></dd>
+              </div>
+              <div class="header__sub-title">
+                <dt>集う</dt>
+                <dd class="header__sub-link"><a href="#">六波羅蜜寺の年中行事</a></dd>
+              </div>
+            </dl>
           </nav>
-          
+
           <button class="mobile-menu__btn">
             <span></span>
             <span></span>
             <span></span>
           </button>
         </div>
-      </div> -->
+      </div>
 
       <div id="content">
         <div class="hero">
@@ -114,111 +145,37 @@
           </aside> -->
 
           <main>
-            <section class="openning">
-              <h2 class="openning__title">お知らせ</h2>
+            <section class="openning appear up">
+              <h2 class="openning__title item">お知らせ</h2>
               <div class="openning__inner">
                 <div class="openning__whats-new">
                   <ul>
-                    <li class="openning__news">
+                    <li class="openning__news item">
                       <div class="date">2024.03.07</div>
                       <div class="title">西国三十三所 納経料改定のお知らせ</div>
                     </li>
-                    <li class="openning__news">
+                    <li class="openning__news item">
                       <div class="date">2024.03.07</div>
                       <div class="title">都七福神 御朱印料改定のお知らせ</div>
                     </li>
-                    <li class="openning__news">
+                    <li class="openning__news item">
                       <div class="date">2024.02.21</div>
                       <div class="title">令和六年 春季彼岸会御案内</div>
                     </li>
-                    <li class="openning__news">
+                    <li class="openning__news item">
                       <div class="date">2024.01.19</div>
                       <div class="title">令和６年能登半島地震のお見舞い</div>
                     </li>
                   </ul>
-                  <button class="openning__btn btn slide-bg">一覧へ</button>
+                  <button class="openning__btn btn slide-bg  item">一覧へ</button>
                 </div>
-                <div class="openning__movie">
+                <div class="openning__movie item">
                   <iframe class="openning__youtube" 
                     src="https://www.youtube.com/embed/Ombbrg1Usn4" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowfullscreen>
                   </iframe>
-                </div>
-              </div>
-            </section>
-
-            <!-- <section class="travel">
-              <div class="travel__inner">
-                <div class="travel__img cover-slide">
-                  <img class="img-zoom" src="images/image-travel.jpg" />
-                </div>
-                <div class="travel__texts appear left">
-                  <div class="travel__texts-inner">
-                    <div class="travel__title main-title item">
-                      <span class="purple">Travel</span>
-                      <span>the world</span>
-                    </div>
-                    <div class="travel__sub sub-title item">
-                      世界中を旅しよう
-                    </div>
-                    <div class="travel__description item">
-                      <p>世界１５０ヶ国で<br />利用できる民泊サービスです。</p>
-                      <p>あなたの望む宿がきっと見つかります。</p>
-                    </div>
-                    <div class="travel__btn item">
-                      <button class="btn filled">もっと詳しく</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section> -->
-
-            <section class="houses">
-              <div>
-                <h2 class="main-title animate-title">Find Your HouseFind</h2>
-                <p class="sub-title animate-title">お気に入りの宿泊先を見つけよう!</p>
-              </div>
-              <div class="houses__inner">
-                <div class="houses__item">
-                  <div class="cover-slide hover-darken">
-                    <div class="bg-img-zoom img-bg50"></div>
-                  </div>
-                  <p class="houses__title">House 1</p>
-                </div>
-                <div class="houses__item">
-                  <div class="cover-slide hover-darken">
-                    <div class="bg-img-zoom img-bg50 two"></div>
-                  </div>
-                  <p class="houses__title">House 2</p>
-                </div>
-                <div class="houses__item">
-                  <div class="cover-slide hover-darken">
-                    <div class="bg-img-zoom img-bg50 three"></div>
-                  </div>
-                  <p class="houses__title">House 3</p>
-                </div>
-                <div class="houses__item">
-                  <div class="cover-slide hover-darken">
-                    <div class="bg-img-zoom img-bg50 four"></div>
-                  </div>
-                  <p class="houses__title">House 4</p>
-                </div>
-                <div class="houses__item">
-                  <div class="cover-slide hover-darken">
-                    <div class="bg-img-zoom img-bg50 five"></div>
-                  </div>
-                  <p class="houses__title">House 5</p>
-                </div>
-                <div class="houses__item">
-                  <div class="cover-slide hover-darken">
-                    <div class="bg-img-zoom img-bg50 six"></div>
-                  </div>
-                  <p class="houses__title">House 6</p>
-                </div>
-                <div class="houses__btn appear up">
-                  <button class="btn slide-bg item">もっと詳しく</button>
                 </div>
               </div>
             </section>
@@ -415,7 +372,7 @@
       </div>
     </div>
 
-    <!-- <nav class="mobile-menu">
+    <nav class="mobile-menu">
       <div class="logo">
         <img class="logo__img" src="./images/logo.svg" alt="">
         <span class="logo__stay">Stay</span>
@@ -441,7 +398,7 @@
           </a>
         </li>
       </ul>
-    </nav> -->
+    </nav>
   </div>
 </body>
 
@@ -449,7 +406,83 @@
 
 
 
+<!-- 
+<section class="travel">
+  <div class="travel__inner">
+    <div class="travel__img cover-slide">
+      <img class="img-zoom" src="images/image-travel.jpg" />
+    </div>
+    <div class="travel__texts appear left">
+      <div class="travel__texts-inner">
+        <div class="travel__title main-title item">
+          <span class="purple">Travel</span>
+          <span>the world</span>
+        </div>
+        <div class="travel__sub sub-title item">
+          世界中を旅しよう
+        </div>
+        <div class="travel__description item">
+          <p>世界１５０ヶ国で<br />利用できる民泊サービスです。</p>
+          <p>あなたの望む宿がきっと見つかります。</p>
+        </div>
+        <div class="travel__btn item">
+          <button class="btn filled">もっと詳しく</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+-->
 
+<!-- 
+<section class="houses">
+  <div>
+    <h2 class="main-title animate-title">Find Your HouseFind</h2>
+    <p class="sub-title animate-title">お気に入りの宿泊先を見つけよう!</p>
+  </div>
+  <div class="houses__inner">
+    <div class="houses__item">
+      <div class="cover-slide hover-darken">
+        <div class="bg-img-zoom img-bg50"></div>
+      </div>
+      <p class="houses__title">House 1</p>
+    </div>
+    <div class="houses__item">
+      <div class="cover-slide hover-darken">
+        <div class="bg-img-zoom img-bg50 two"></div>
+      </div>
+      <p class="houses__title">House 2</p>
+    </div>
+    <div class="houses__item">
+      <div class="cover-slide hover-darken">
+        <div class="bg-img-zoom img-bg50 three"></div>
+      </div>
+      <p class="houses__title">House 3</p>
+    </div>
+    <div class="houses__item">
+      <div class="cover-slide hover-darken">
+        <div class="bg-img-zoom img-bg50 four"></div>
+      </div>
+      <p class="houses__title">House 4</p>
+    </div>
+    <div class="houses__item">
+      <div class="cover-slide hover-darken">
+        <div class="bg-img-zoom img-bg50 five"></div>
+      </div>
+      <p class="houses__title">House 5</p>
+    </div>
+    <div class="houses__item">
+      <div class="cover-slide hover-darken">
+        <div class="bg-img-zoom img-bg50 six"></div>
+      </div>
+      <p class="houses__title">House 6</p>
+    </div>
+    <div class="houses__btn appear up">
+      <button class="btn slide-bg item">もっと詳しく</button>
+    </div>
+  </div>
+</section> 
+-->
 
 <!-- 
 <section class="popular">
