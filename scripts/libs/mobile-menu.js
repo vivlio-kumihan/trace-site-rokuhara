@@ -18,6 +18,7 @@ class MobileMenu {
   }
   _toggle() {
     this.DOM.container.classList.toggle('menu-open');
+    console.log(this);
   }
   _addEvent() {
     this.DOM.btn.addEventListener(this.eventType, this._toggle.bind(this));

@@ -6,6 +6,7 @@
   top: 60px;
   right: 0;
   width: 300px;
+  padding-left: 25px;
   z-index: 1;
   // transition: .3s;
   // visibility: hidden;
@@ -13,10 +14,8 @@
 
   .logo {
     display: flex;
-    // justify-content: center;
     align-items: center;
-    font-size: 32px;
-    padding-left: 40px;
+
 
     @include mq(md) {
       flex-direction: row;
@@ -24,7 +23,7 @@
     }
 
     &__img {
-      width: 0.8em;
+      width: 150px;
     }
 
     &__world {

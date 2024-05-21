@@ -12,6 +12,7 @@ class Main {
     // トリガーを初期化する。
     // ここで定義するということは、bindの対象だということ。
     this.header = document.querySelector(".header");
+
     
     // テキスト・アニメーション用の小見出しを収集してアニメーション用にインスタンス化する。
     const targets = document.querySelectorAll('.animate-title');
@@ -47,7 +48,7 @@ class Main {
     // プライベート関数がよばればタイミングで発砲する。
     // こうしておくと、ページを開く際に必ず呼ばれる『new Main;』が発火した時に
     // 設定されるから。徹底的やね。
-    // new MobileMenu();
+    new MobileMenu();
     this._scrollInit();
   }
 
@@ -55,7 +56,6 @@ class Main {
   // SPAを作ることになった際に必要になってくるスキル。
   destroy() {
     this._observers.forEach(so => so.destroy());
-    console.log(this);
   };
 
   // 複数のオブザーバーを配列として格納する。
@@ -66,7 +66,7 @@ class Main {
       new ScrollObserver('.swiper', this._toggleSlideAnimeCB.bind(this), { once: false }),
       new ScrollObserver('.travel__texts', this._travelTextsCB, { once: true }),
       new ScrollObserver('.cover-slide', this._slideImageCB, { once: true }),
-      new ScrollObserver('.appear', this._appearAnimeCB, { once: true }),
+      new ScrollObserver('.appear', this._appearAnimeCB, { once: true, rootMargin: "-150px 0px" }),
       new ScrollObserver('.animate-title', this._textAnimeCB.bind(this), { once: true }),     
       new ScrollObserver('#main-content', this._asideAnimeCB.bind(this), { once: false, rootMargin: "-300px 0px" }),     
     )
@@ -84,11 +84,11 @@ class Main {
   
   // 内容が上に上がるとheaderの背景を白く着色する
   _headerBgWhiteCB(el, isIntersecting) {
-    // if (isIntersecting) {
-    //   this.header.classList.remove('triggered');
-    // } else {
-    //   this.header.classList.add('triggered');
-    // }
+    if (isIntersecting) {
+      this.header.classList.remove('triggered');
+    } else {
+      this.header.classList.add('triggered');
+    }
   };  
 
   // Travel Texts

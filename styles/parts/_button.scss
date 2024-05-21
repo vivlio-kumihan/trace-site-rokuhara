@@ -16,17 +16,17 @@
   &.float:hover {
     background-color: $cBlack;
     color: $cWhite;
-    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 10px 0 $cTheme;
   }
 
   &.filled {
     background-color: $cBlack;
     color: $cWhite;
-    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 10px 0 $cTheme;
 
     &:hover {
-      background-color: $cWhite;
-      color: $cBlack;
+      color: $cWhite;
+      background-color: $cThemeSub;
       box-shadow: none;
     }
   }

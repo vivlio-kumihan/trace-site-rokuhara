@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Noto+Serif+JP:wght@400;800&display=swap&family=Yuji+Boku&display=swap&" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/destyle.css@4.0.0/destyle.min.css">
-  <!-- <link rel="stylesheet" href="./styles/vendors/css-reset.css"> -->
+
   <!-- 一旦ページローダーを止めている。 -->
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -37,49 +37,49 @@
     <div id="container">
       <div class="mobile-menu__cover"></div>
       <div class="nav-trigger"></div>
-
       <div class="header">
         <div class="header-bg"></div>
         <div class="header__inner">
           <div class="logo">
-            <img src="./images/logo-org-name.svg" alt="" class="logo__org-name" />
+            <a href="#">
+              <img src="./images/logo-org-name.svg" alt="" class="logo__org-name" />
+            </a>
           </div>
           <nav class="header__nav">
             <ul class="header__main-nav">
-              <li class="header__main-link"><a href="#">HOME</a></li>
-              <li class="header__main-link"><a href="#">お知らせ</a></li>
-              <li class="header__main-link"><a href="#">拝観案内</a></li>
-              <li class="header__main-link"><a href="#">SNS</a></li>
-              <!-- <li class="header__main-link"><a href="#"><a class="btn filled" href="#">お問合せ</a></li> -->
+              <li class="header__main-link"><a href="#whats-new">お知らせ</a></li>
+              <li class="header__main-link"><a href="#information">拝観案内</a></li>
+              <li class="header__main-link"><a href="#sns">SNS</a></li>
+              <li class="header__main-link"><a class="btn filled" href="#">お問合せ</a></li>
             </ul>
             <dl class="header__sub-nav">
               <div class="header__sub-title">
-                <dt>知る</dt>
+                <dt class="yuji-boku-regular">知&nbsp;る</dt>
                 <dd class="header__sub-link"><a href="#">六波羅蜜寺の歴史</a></dd>
                 <dd class="header__sub-link"><a href="#">六波羅蜜とは</a></dd>
               </div>
               <div class="header__sub-title">
-                <dt>観る</dt>
+                <dt class="yuji-boku-regular">観&nbsp;る</dt>
                 <dd class="header__sub-link"><a href="#">六波羅蜜寺の寺宝</a></dd>
                 <dd class="header__sub-link"><a href="#">源平の史蹟</a></dd>
               </div class="header__sub-title">
-              <div>
-                <dt>巡る</dt>
+              <div class="header__sub-title">
+                <dt class="yuji-boku-regular">巡&nbsp;る</dt>
                 <dd class="header__sub-link"><a href="#">西国十七番札所</a></dd>
-                <dd class="header__sub-link"><a href="#">都七福神の一・巳成金弁財天</a></dd>
+                <dd class="header__sub-link"><a href="#">都七福神の一・<br />巳成金弁財天</a></dd>
               </div>
               <div class="header__sub-title">
-                <dt>叶う</dt>
+                <dt class="yuji-boku-regular">叶&nbsp;う</dt>
                 <dd class="header__sub-link"><a href="#">開運推命おみくじ</a></dd>
               </div>
               <div class="header__sub-title">
-                <dt>願う</dt>
+                <dt class="yuji-boku-regular">願&nbsp;う</dt>
                 <dd class="header__sub-link"><a href="#">福を呼ぶ銭洗い弁天</a></dd>
                 <dd class="header__sub-link"><a href="#">巳の日の特別ご朱印</a></dd>
                 <dd class="header__sub-link"><a href="#">御祈願お申込み</a></dd>
               </div>
               <div class="header__sub-title">
-                <dt>集う</dt>
+                <dt class="yuji-boku-regular">集&nbsp;う</dt>
                 <dd class="header__sub-link"><a href="#">六波羅蜜寺の年中行事</a></dd>
               </div>
             </dl>
@@ -146,7 +146,7 @@
 
           <main>
             <section class="openning appear up">
-              <h2 class="openning__title item">お知らせ</h2>
+              <h2 id="whats-new" class="openning__title item">お知らせ</h2>
               <div class="openning__inner">
                 <div class="openning__whats-new">
                   <ul>
@@ -167,7 +167,9 @@
                       <div class="title">令和６年能登半島地震のお見舞い</div>
                     </li>
                   </ul>
-                  <button class="openning__btn btn slide-bg  item">一覧へ</button>
+                  <div class="btn-wrap item">
+                    <button class="openning__btn btn slide-bg">一覧へ</button>
+                  </div>
                 </div>
                 <div class="openning__movie item">
                   <iframe class="openning__youtube" 
@@ -181,7 +183,7 @@
             </section>
 
             <section class="information appear up">
-              <h2 class="item">拝観案内</h2>
+              <h2 id="information" class="item">拝観案内</h2>
               <div class="information__inner appear up">
                 <div class="information__point item">
                   <div class="temple-name item">補陀洛山 六波羅蜜寺</div>
@@ -236,7 +238,9 @@
                   </div>
                 </dl>
               </div>
-              <button class="information__btn btn slide-bg item"><a href="#">地&emsp;図</a></button>
+              <div class="btn-wrap item">
+                <button class="information__btn btn slide-bg"><a href="#">地&emsp;図</a></button>
+              </div>
               <div class="information__address-tel item">
                 <address class="item">〒605-0813&nbsp;京都市東山区ロクロ町81-1 六波羅蜜寺</address>
                 <div class="tel item">TEL.<a href="tel:075-561-6980">075-561-6980</a></div> 
@@ -314,7 +318,7 @@
             </section>
             
             <section class="sns appear up">
-              <h2 class="header-under-line item">SNS</h2>
+              <h2 id="sns" class="header-under-line item">SNS</h2>
               <ul class="sns__inner">
                 <li class="sns__channel item">
                   <a class="sns__anchor btn slide-bg" href="#">
@@ -374,30 +378,45 @@
 
     <nav class="mobile-menu">
       <div class="logo">
-        <img class="logo__img" src="./images/logo.svg" alt="">
-        <span class="logo__stay">Stay</span>
-        <span class="logo__world">World</span>
+        <img class="logo__img" src="./images/logo-org-name.svg" alt="">
       </div>
       <ul class="mobile-menu__main">
-        <li class="mobile-menu__item">
-          <a class="mobile-menu__link" href="#">
-            <span class="main-title">Our Service</span>
-            <span class="sub-title">サービスについて</span>
-          </a>
-        </li>
-        <li class="mobile-menu__item">
-          <a class="mobile-menu__link" href="#">
-            <span class="main-title">About Us</span>
-            <span class="sub-title">私たちについて</span>
-          </a>
-        </li>
-        <li class="mobile-menu__item">
-          <a class="mobile-menu__link" href="#">
-            <span class="main-title">Contact Us</span>
-            <span class="sub-title">お問い合わせ方法</span>
-          </a>
-        </li>
+        <li class="mobile__main-link"><a href="#whats-new">お知らせ</a></li>
+        <li class="mobile__main-link"><a href="#information">拝観案内</a></li>
+        <li class="mobile__main-link"><a href="#sns">SNS</a></li>
+        <li class="mobile__main-link"><a class="btn filled" href="#">お問合せ</a></li>
       </ul>
+      <dl class="mobile__sub-nav">
+        <div class="mobile__sub-title">
+          <dt class="yuji-boku-regular">知&nbsp;る</dt>
+          <dd class="mobile__sub-link"><a href="#">六波羅蜜寺の歴史</a></dd>
+          <dd class="mobile__sub-link"><a href="#">六波羅蜜とは</a></dd>
+        </div>
+        <div class="mobile__sub-title">
+          <dt class="yuji-boku-regular">観&nbsp;る</dt>
+          <dd class="mobile__sub-link"><a href="#">六波羅蜜寺の寺宝</a></dd>
+          <dd class="mobile__sub-link"><a href="#">源平の史蹟</a></dd>
+        </div class="mobile__sub-title">
+        <div class="mobile__sub-title">
+          <dt class="yuji-boku-regular">巡&nbsp;る</dt>
+          <dd class="mobile__sub-link"><a href="#">西国十七番札所</a></dd>
+          <dd class="mobile__sub-link"><a href="#">都七福神の一・<br />巳成金弁財天</a></dd>
+        </div>
+        <div class="mobile__sub-title">
+          <dt class="yuji-boku-regular">叶&nbsp;う</dt>
+          <dd class="mobile__sub-link"><a href="#">開運推命おみくじ</a></dd>
+        </div>
+        <div class="mobile__sub-title">
+          <dt class="yuji-boku-regular">願&nbsp;う</dt>
+          <dd class="mobile__sub-link"><a href="#">福を呼ぶ銭洗い弁天</a></dd>
+          <dd class="mobile__sub-link"><a href="#">巳の日の特別ご朱印</a></dd>
+          <dd class="mobile__sub-link"><a href="#">御祈願お申込み</a></dd>
+        </div>
+        <div class="mobile__sub-title">
+          <dt class="yuji-boku-regular">集&nbsp;う</dt>
+          <dd class="mobile__sub-link"><a href="#">六波羅蜜寺の年中行事</a></dd>
+        </div>
+      </dl>
     </nav>
   </div>
 </body>
@@ -526,4 +545,34 @@
     </div>
   </div>
 </section>
+-->
+
+<!-- 
+<nav class="mobile-menu">
+  <div class="logo">
+    <img class="logo__img" src="./images/logo.svg" alt="">
+    <span class="logo__stay">Stay</span>
+    <span class="logo__world">World</span>
+  </div>
+  <ul class="mobile-menu__main">
+    <li class="mobile-menu__item">
+      <a class="mobile-menu__link" href="#">
+        <span class="main-title">Our Service</span>
+        <span class="sub-title">サービスについて</span>
+      </a>
+    </li>
+    <li class="mobile-menu__item">
+      <a class="mobile-menu__link" href="#">
+        <span class="main-title">About Us</span>
+        <span class="sub-title">私たちについて</span>
+      </a>
+    </li>
+    <li class="mobile-menu__item">
+      <a class="mobile-menu__link" href="#">
+        <span class="main-title">Contact Us</span>
+        <span class="sub-title">お問い合わせ方法</span>
+      </a>
+    </li>
+  </ul>
+</nav> 
 -->
