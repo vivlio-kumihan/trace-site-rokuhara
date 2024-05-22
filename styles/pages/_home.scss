@@ -33,9 +33,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: $navHeight;
+  height: 80px;
   z-index: 100;
   transition: 1s;
+  @include mq(lg) {
+    height: $navHeight;
+  }
 
   &.triggered {
     background-color: rgba($color: $cWhite, $alpha: 0.9);
@@ -49,12 +52,18 @@
     align-items: center;
     @extend .content-width;
     height: 100%;
-    @extend .pb-sm;
+    @include mq(lg) {
+      padding-bottom: 1em;
+    }
+
   }
 
   & .logo {
-    width: 200px;
+    width: 160px;
     height: 50px;
+    @include mq(md) {
+      width: 200px;
+    }
 
     &__org-name {
       width: 100%;
