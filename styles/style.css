@@ -1,3 +1,59 @@
+.pace-done > #global-container {
+  transition: opacity 1s;
+  opacity: 1;
+}
+
+#global-container {
+  opacity: 0;
+}
+
+.pace .pace-progress {
+  display: grid;
+  place-content: center;
+  right: 0;
+  height: 80vh;
+  z-index: 0;
+  background: none;
+  transform: none !important;
+}
+.pace .pace-progress::after {
+  position: fixed;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  content: attr(data-progress-text);
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 100;
+  font-family: "Helvetica Neue", "Yo Gothic", "Meiryo", sans-serif;
+}
+.pace .pace-progress-inner {
+  width: 40px;
+  height: 40px;
+  background-color: #891a06;
+  animation-name: sk-rotateplane;
+  animation-duration: 1.2s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+.pace.pace-inactive {
+  display: none;
+}
+
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(100px) rotateX(-180deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(100px) rotateX(-180deg) rotateY(-180deg);
+  }
+}
 .appear.up .item {
   transform: translateY(50px);
 }
