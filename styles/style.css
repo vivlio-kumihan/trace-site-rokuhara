@@ -249,7 +249,7 @@
 }
 @media (min-width: 960px) {
   .hero {
-    margin-bottom: 120px;
+    margin-bottom: 55px;
     padding-top: 115px;
   }
 }
@@ -963,18 +963,20 @@ h2 {
 }
 .header__sub-link {
   margin-top: 7px;
-  padding: 7px 0;
   font-size: 0.7rem;
   line-height: 1.25;
   color: white;
-  background-color: rgba(137, 26, 6, 0.4);
+  background-color: rgba(137, 26, 6, 0.8);
   transform: translateY(-20px);
   visibility: hidden;
   opacity: 0;
   transition: 0.4s;
 }
-.header__sub-link:hover {
-  background-color: rgba(137, 26, 6, 0.8);
+.header__sub-link > a {
+  display: inline-block;
+  padding: 7px 0;
+  width: 100%;
+  height: 100%;
 }
 
 .openning__inner {

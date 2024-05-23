@@ -1,51 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Noto+Serif+JP:wght@400;800&display=swap&family=Yuji+Boku&display=swap&"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/destyle.css@4.0.0/destyle.min.css">
 
+  <!-- 一旦ページローダーを止めている。 -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="./styles/style.css">
 
+  <!-- 一旦ページローダーを止めている。 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js" defer></script> -->
 
+  <script src="./scripts/libs/common-navi.js" defer></script>
+  <script src="./scripts/libs/mobile-menu.js" defer></script>
 
-Important cultural property
-六波羅蜜寺の寺宝
-たび重なる兵火をのがれ、六波羅蜜寺には平安・鎌倉期の木像彫刻を代表とする名宝が数多く安置されています。
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  <script src="./scripts/libs/hero-slider.js" defer></script>
 
-平安時代
-国宝 十一面観音立像
-普段は秘仏のため、本堂中央の厨子の中に安置されていますが、十二年に一度、辰年の年に御開帳されます。
-重文 薬師如来坐像
-重文 地蔵菩薩立像
-重文 多聞天立像
-重文 広目天立像
-重文 持国天立像
+  <script src="./scripts/vendors/gsap.min.js" defer></script>
+  <script src="./scripts/libs/text-animation.js" defer></script>
 
-鎌倉時代
-重文 増長天立像
-重文 地蔵菩薩坐像
-重文 吉祥天女像
-重文 閻魔大王像
-重文 弘法大師像
-重文 空也上人像
-重文 平清盛坐像
-重文 運慶坐像
-重文 湛慶坐像
+  <script src="./scripts/libs/scroll.js" defer></script>
 
-空也上人立像
-鎌倉時代（重要文化財）
-運慶の四男康勝の作。胸に金鼓を、右手に撞木を、左手に鹿の杖をつき、膝を露に草鞋をはき、念仏を唱える口から六体の阿弥陀が現れたという伝承のままに洗練された写実彫刻である。
+  <script src="./scripts/main.js" defer></script>
+</head>
 
-平清盛坐像
-鎌倉時代（重要文化財）
-経巻を手にしたその風姿は平家物語に描かれている清盛の傲慢さは全くなく、仏者としての気品を覚える。一門の武運長久を祈願し、朱の中へ血を点じて写経した頃の太政大臣浄海入道清盛公の像である。
+<body>
+  <div id="global-container">
+    <div id="container">
+      <div class="mobile-menu__cover"></div>
+      <div class="nav-trigger"></div>
+      <div id="header" class="header"></div>
 
-地蔵菩薩立像
-巨匠定朝の作。元六波羅地蔵堂の本尊で、面相も優しく彩色に切金を混用し、左手に頭髪を持った珍しい仏像で”鬘掛地蔵”といわれている。
+      <div id="content">
+        <div id="main-content">
+          <!-- <aside class="side left">
+            <div class="side__inner">
+              <a class="twitter icon animate-title" href="#">Twitter</a>
+              <a class="facebook icon animate-title" href="#">Facebook</a>
+            </div>
+          </aside> -->
 
-地蔵菩薩坐像
-運慶の作。一族の菩提寺十輪院の本尊。一名”夢見地蔵”といわれ眉目秀麗な面相や変化のある法衣のひだのまとめ方は実に優れている。
+          <main>
+            Important cultural property
+            六波羅蜜寺の寺宝
+            たび重なる兵火をのがれ、六波羅蜜寺には平安・鎌倉期の木像彫刻を代表とする名宝が数多く安置されています。
+            
+            平安時代
+            国宝 十一面観音立像
+            普段は秘仏のため、本堂中央の厨子の中に安置されていますが、十二年に一度、辰年の年に御開帳されます。
+            重文 薬師如来坐像
+            重文 地蔵菩薩立像
+            重文 多聞天立像
+            重文 広目天立像
+            重文 持国天立像
+            
+            鎌倉時代
+            重文 増長天立像
+            重文 地蔵菩薩坐像
+            重文 吉祥天女像
+            重文 閻魔大王像
+            重文 弘法大師像
+            重文 空也上人像
+            重文 平清盛坐像
+            重文 運慶坐像
+            重文 湛慶坐像
+            
+            空也上人立像
+            鎌倉時代（重要文化財）
+            運慶の四男康勝の作。胸に金鼓を、右手に撞木を、左手に鹿の杖をつき、膝を露に草鞋をはき、念仏を唱える口から六体の阿弥陀が現れたという伝承のままに洗練された写実彫刻である。
+            
+            平清盛坐像
+            鎌倉時代（重要文化財）
+            経巻を手にしたその風姿は平家物語に描かれている清盛の傲慢さは全くなく、仏者としての気品を覚える。一門の武運長久を祈願し、朱の中へ血を点じて写経した頃の太政大臣浄海入道清盛公の像である。
+            
+            地蔵菩薩立像
+            巨匠定朝の作。元六波羅地蔵堂の本尊で、面相も優しく彩色に切金を混用し、左手に頭髪を持った珍しい仏像で”鬘掛地蔵”といわれている。
+            
+            地蔵菩薩坐像
+            運慶の作。一族の菩提寺十輪院の本尊。一名”夢見地蔵”といわれ眉目秀麗な面相や変化のある法衣のひだのまとめ方は実に優れている。
+            
+            運慶坐像・湛慶坐像
+            わが国の彫刻界の黄金期を築いた運慶・湛慶（運慶の長男）の父子の像。当時十輪院は運慶一族の菩提寺であったことから、本尊の脇侍のように祀られていた。
+            
+            重要有形民俗文化財
+            泥塔
+            皇服茶碗
+            版木
+            萬燈会関係用具 2300余点
 
-運慶坐像・湛慶坐像
-わが国の彫刻界の黄金期を築いた運慶・湛慶（運慶の長男）の父子の像。当時十輪院は運慶一族の菩提寺であったことから、本尊の脇侍のように祀られていた。
+          </main>
 
-重要有形民俗文化財
-泥塔
-皇服茶碗
-版木
-萬燈会関係用具 2300余点
+          <!-- <aside class="side right">
+            <div class="side__inner">
+              <span class="animate-title">&copy; Code Mafia</span>
+            </div>
+          </aside> -->
+        </div>
+      </div>
+
+      <div id="footer" class="footer"></div>
+    </div>
+
+    <nav class="mobile-menu">
+      <div class="logo">
+        <img class="logo__img" src="./images/logo-org-name.svg" alt="">
+      </div>
+      <ul class="mobile-menu__main">
+        <li class="mobile-menu__main-link"><a href="#whats-new">お知らせ</a></li>
+        <li class="mobile-menu__main-link"><a href="#information">拝観案内</a></li>
+        <li class="mobile-menu__main-link"><a href="#sns">SNS</a></li>
+        <li class="mobile-menu__main-link"><a href="#">お問合せ</a></li>
+      </ul>
+      <dl class="mobile-menu__sub-nav">
+        <div class="mobile-menu__sub-title">
+          <dt class="yuji-boku-regular">知&nbsp;る</dt>
+          <dd class="mobile-menu__sub-link">
+            <a href="#">六波羅蜜寺の歴史</a>
+            <a href="#">六波羅蜜とは</a>
+          </dd>
+        </div>
+        <div class="mobile-menu__sub-title">
+          <dt class="yuji-boku-regular">観&nbsp;る</dt>
+          <dd class="mobile-menu__sub-link">
+            <a href="#">六波羅蜜寺の寺宝</a>
+            <a href="#">源平の史蹟</a>
+          </dd>
+        </div>
+        <div class="mobile-menu__sub-title">
+          <dt class="yuji-boku-regular">巡&nbsp;る</dt>
+          <dd class="mobile-menu__sub-link">
+            <a href="#">西国十七番札所</a>
+            <a href="#">都七福神の一・<br />巳成金弁財天</a>
+          </dd>
+        </div>
+        <div class="mobile-menu__sub-title">
+          <dt class="yuji-boku-regular">叶&nbsp;う</dt>
+          <dd class="mobile-menu__sub-link">
+            <a href="#">開運推命おみくじ</a>
+          </dd>
+        </div>
+        <div class="mobile-menu__sub-title">
+          <dt class="yuji-boku-regular">願&nbsp;う</dt>
+          <dd class="mobile-menu__sub-link">
+            <a href="#">福を呼ぶ銭洗い弁天</a>
+            <a href="#">巳の日の特別ご朱印</a>
+            <a href="#">御祈願お申込み</a>
+          </dd>
+        </div>
+        <div class="mobile-menu__sub-title">
+          <dt class="yuji-boku-regular">集&nbsp;う</dt>
+          <dd class="mobile-menu__sub-link">
+            <a href="#">六波羅蜜寺の年中行事</a>
+          </dd>
+        </div>
+      </dl>
+    </nav>
+  </div>
+</body>
+
+</html>

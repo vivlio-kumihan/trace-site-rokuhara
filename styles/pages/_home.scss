@@ -126,17 +126,19 @@
   }
   &__sub-link {
     margin-top: 7px;
-    padding: 7px 0;
     font-size: 0.7rem;
     line-height: 1.25;
     color: $cWhite;
-    background-color: rgba($color: $cThemeSub, $alpha: .4);
+    background-color: rgba($color: $cThemeSub, $alpha: .8);
     transform: translateY(-20px);
     visibility: hidden;
     opacity: 0;
     transition: .4s;
-    &:hover {
-      background-color: rgba($color: $cThemeSub, $alpha: .8);
+    & > a {
+      display: inline-block;
+      padding: 7px 0;
+      width: 100%;
+      height: 100%
     }
   }
 }
